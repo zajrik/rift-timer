@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,6 +19,11 @@ namespace rift_timer
         public RiftTimer()
         {
             InitializeComponent();
+
+            if (!Directory.Exists("logs"))
+            {
+                Directory.CreateDirectory("logs");
+            }
         }
 
         private Stopwatch time = new Stopwatch();
@@ -109,7 +115,7 @@ namespace rift_timer
                 finished = true;
                 CheckTime();
 
-                // Add new log to list
+                // Add new log to rifts list
                 entryNum++;
                 entryStr = String.Format
                     (
@@ -271,7 +277,21 @@ namespace rift_timer
         // Execute on exit
         private void RiftTimer_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Log rift times to file? Still not sure. Possibly in future version.
+            // Log rifts list to file
+            try
+            {
+                if (riftsList.Count != 0)
+                {
+                    String timeStamp = DateTime.Now.ToString("MM.dd.yyyy_HH.mm.ss");
+                    File.WriteAllLines(String.Format("logs\\log_{0}.txt", timeStamp), riftsList);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("There was an error creating a log file for this session. Press OK to exit");
+                Application.Exit();
+                throw;
+            }
         }
     }
 }
