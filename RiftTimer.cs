@@ -6,7 +6,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Timers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -119,7 +118,7 @@ namespace rift_timer
                 entryNum++;
                 entryStr = String.Format
                     (
-                        "{0}{1,-5}{2,-3}{3, -10}{4,-3}{5,-14}{6,-3}{7}",
+                        "{0}{1,-5}{2,-3}{3,-10}{4,-3}{5,-14}{6,-3}{7}",
                         "Rift #", entryNum.ToString("D3"), "|",
                         time.Elapsed.ToString("mm\\:ss\\:ff"), "|",
                         classesList[classesDropDown.SelectedIndex], "|",
@@ -160,7 +159,8 @@ namespace rift_timer
             label1.Text = time.Elapsed.ToString("mm\\:ss\\:ff");
         }
 
-        // Set pause state, clear pause indicator if unpausing
+        // Set pause state, clear pause indicator if unpausing,
+        // and change start button text
         private void SetPauseState(Boolean state)
         {
             if (state)
@@ -193,7 +193,7 @@ namespace rift_timer
                 difficultyDropDown.Enabled = true;
             }
 
-            // Flash pause indicator on 10 tick intervals
+            // Flash pause indicator at 75 tick intervals
             if (paused)
             {
                 if (tick <= 75)
