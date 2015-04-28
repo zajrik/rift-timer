@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.startButton = new System.Windows.Forms.Button();
+            this.finishButton = new System.Windows.Forms.Button();
             this.internalClock = new System.Windows.Forms.Timer(this.components);
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.pauseButton = new System.Windows.Forms.Button();
+            this.resetButton = new System.Windows.Forms.Button();
             this.pauseIndicator = new System.Windows.Forms.Label();
             this.logBox = new System.Windows.Forms.ListBox();
             this.finishIndicator = new System.Windows.Forms.Label();
@@ -58,23 +58,23 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(220, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Start_Click);
+            this.startButton.Location = new System.Drawing.Point(220, 8);
+            this.startButton.Name = "button1";
+            this.startButton.Size = new System.Drawing.Size(75, 23);
+            this.startButton.TabIndex = 1;
+            this.startButton.Text = "Start";
+            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.Start_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(220, 37);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Finish";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Finish_Click);
+            this.finishButton.Location = new System.Drawing.Point(220, 37);
+            this.finishButton.Name = "button2";
+            this.finishButton.Size = new System.Drawing.Size(75, 23);
+            this.finishButton.TabIndex = 2;
+            this.finishButton.Text = "Finish";
+            this.finishButton.UseVisualStyleBackColor = true;
+            this.finishButton.Click += new System.EventHandler(this.Finish_Click);
             // 
             // internalClock
             // 
@@ -82,23 +82,23 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(302, 9);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Pause";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Pause_Click);
+            this.pauseButton.Location = new System.Drawing.Point(302, 9);
+            this.pauseButton.Name = "button3";
+            this.pauseButton.Size = new System.Drawing.Size(75, 23);
+            this.pauseButton.TabIndex = 3;
+            this.pauseButton.Text = "Pause";
+            this.pauseButton.UseVisualStyleBackColor = true;
+            this.pauseButton.Click += new System.EventHandler(this.Pause_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(302, 37);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Reset";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Reset_Click);
+            this.resetButton.Location = new System.Drawing.Point(302, 37);
+            this.resetButton.Name = "button4";
+            this.resetButton.Size = new System.Drawing.Size(75, 23);
+            this.resetButton.TabIndex = 4;
+            this.resetButton.Text = "Reset";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.Reset_Click);
             // 
             // pauseIndicator
             // 
@@ -194,10 +194,10 @@
             this.Controls.Add(this.finishIndicator);
             this.Controls.Add(this.logBox);
             this.Controls.Add(this.pauseIndicator);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.resetButton);
+            this.Controls.Add(this.pauseButton);
+            this.Controls.Add(this.finishButton);
+            this.Controls.Add(this.startButton);
             this.Controls.Add(this.label1);
             this.Name = "RiftTimer";
             this.Text = "Rift Timer";
@@ -211,11 +211,11 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button finishButton;
         private System.Windows.Forms.Timer internalClock;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button pauseButton;
+        private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Label pauseIndicator;
         private System.Windows.Forms.ListBox logBox;
         private System.Windows.Forms.Label finishIndicator;

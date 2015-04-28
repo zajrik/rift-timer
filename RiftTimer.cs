@@ -160,11 +160,13 @@ namespace rift_timer
             if (state)
             {
                 paused = true;
+                startButton.Text = "Resume";
             }
             else
             {
                 paused = false;
                 pauseIndicator.Hide();
+                startButton.Text = "Start";
             }
         }
 
