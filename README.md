@@ -10,7 +10,7 @@ because there's never a guarantee something small like that will do exactly
 what you want it to in the given context. I wanted a way to keep track of
 elapsed time and also log specific information related to what I was timing.
 
-<p><align="center"><img src="_res/example.png"/></align></p>
+<p align="center"><img src="_res/example.png"/></p>
 
 The main feature, other than the stopwatch of course, is the logging of each
 finished timer, along with information like the currently selected player
