@@ -14,6 +14,6 @@ elapsed time and also log specific information related to what I was timing.
 
 The main feature, other than the stopwatch of course, is the logging of each
 finished timer, along with information like the currently selected player
-class and the currently selected difficulty. I've been thinking about having
-this logged information be saved to a log file when the session is ended but
-for now that will be saved for the future.
+class and the currently selected difficulty. The list of completed rifts will
+be logged to a timestamped file in the logs folder, found in the Rift Timer
+folder wherever you put it after unzipping.
