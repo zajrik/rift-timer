@@ -180,6 +180,19 @@ namespace rift_timer
         private void InternalClock_Tick(object sender, EventArgs e)
         {
             CheckTime();
+
+            // Disable class/difficulty selection when timer is running
+            if (running)
+            {
+                classesDropDown.Enabled = false;
+                difficultyDropDown.Enabled = false;
+            }
+            else
+            {
+                classesDropDown.Enabled = true;
+                difficultyDropDown.Enabled = true;
+            }
+
             // Flash pause indicator on 10 tick intervals
             if (paused)
             {
@@ -197,6 +210,7 @@ namespace rift_timer
                 }
                 tick++;
             }
+
             // Show/hide finish indicator
             if (finished)
             {
