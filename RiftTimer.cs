@@ -25,16 +25,18 @@ namespace rift_timer
             }
         }
 
+        private static String versionInfo = Application.ProductVersion;
+
         private Stopwatch time = new Stopwatch();
         private int tick = 0;
 
         private List<string> riftsList = new List<string>();
-        private String entryStr;
+        private string entryStr;
         private int entryNum = 0;
 
-        private Boolean running = false;
-        private Boolean paused = false;
-        private Boolean finished = false;
+        private Boolean isRunning = false;
+        private Boolean isPaused = false;
+        private Boolean isFinished = false;
 
         private List<string> classesList = new List<string>
         {
@@ -87,18 +89,18 @@ namespace rift_timer
         // Start button
         private void Start_Click(object sender, EventArgs e)
         {
-            if ((!running && !finished) || paused)
+            if ((!isRunning && !isFinished) || isPaused)
             {
                 time.Start();
-                running = true;
-                finished = false;
+                isRunning = true;
+                isFinished = false;
                 SetPauseState(false);
             }
-            else if (finished)
+            else if (isFinished)
             {
                 time.Restart();
-                running = true;
-                finished = false;
+                isRunning = true;
+                isFinished = false;
                 SetPauseState(false);
             }
         }
@@ -106,12 +108,12 @@ namespace rift_timer
         // Finish button
         private void Finish_Click(object sender, EventArgs e)
         {
-            if (running)
+            if (isRunning)
             {
                 time.Stop();
-                running = false;
+                isRunning = false;
                 SetPauseState(false);
-                finished = true;
+                isFinished = true;
                 CheckTime();
 
                 // Add new log to rifts list
@@ -132,7 +134,7 @@ namespace rift_timer
         // Pause button
         private void Pause_Click(object sender, EventArgs e)
         {
-            if (running)
+            if (isRunning)
             {
                 time.Stop();
                 CheckTime();
@@ -147,8 +149,8 @@ namespace rift_timer
             time.Stop();
             time.Reset();
             SetPauseState(false);
-            running = false;
-            finished = false;
+            isRunning = false;
+            isFinished = false;
             CheckTime();
         }
         //// End button actions
@@ -165,12 +167,12 @@ namespace rift_timer
         {
             if (state)
             {
-                paused = true;
+                isPaused = true;
                 startButton.Text = "Resume";
             }
             else
             {
-                paused = false;
+                isPaused = false;
                 pauseIndicator.Hide();
                 startButton.Text = "Start";
             }
@@ -182,7 +184,7 @@ namespace rift_timer
             CheckTime();
 
             // Disable class/difficulty selection when timer is running
-            if (running)
+            if (isRunning)
             {
                 classesDropDown.Enabled = false;
                 difficultyDropDown.Enabled = false;
@@ -194,7 +196,7 @@ namespace rift_timer
             }
 
             // Flash pause indicator at 75 tick intervals
-            if (paused)
+            if (isPaused)
             {
                 if (tick <= 75)
                 {
@@ -212,7 +214,7 @@ namespace rift_timer
             }
 
             // Show/hide finish indicator
-            if (finished)
+            if (isFinished)
             {
                 finishIndicator.Show();
             }
