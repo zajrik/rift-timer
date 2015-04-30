@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RiftTimer));
             this.label1 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
             this.finishButton = new System.Windows.Forms.Button();
@@ -56,20 +57,20 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "00:00:00";
             // 
-            // button1
+            // startButton
             // 
             this.startButton.Location = new System.Drawing.Point(220, 8);
-            this.startButton.Name = "button1";
+            this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
             this.startButton.TabIndex = 1;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.Start_Click);
             // 
-            // button2
+            // finishButton
             // 
             this.finishButton.Location = new System.Drawing.Point(220, 37);
-            this.finishButton.Name = "button2";
+            this.finishButton.Name = "finishButton";
             this.finishButton.Size = new System.Drawing.Size(75, 23);
             this.finishButton.TabIndex = 2;
             this.finishButton.Text = "Finish";
@@ -80,20 +81,20 @@
             // 
             this.internalClock.Tick += new System.EventHandler(this.InternalClock_Tick);
             // 
-            // button3
+            // pauseButton
             // 
             this.pauseButton.Location = new System.Drawing.Point(302, 9);
-            this.pauseButton.Name = "button3";
+            this.pauseButton.Name = "pauseButton";
             this.pauseButton.Size = new System.Drawing.Size(75, 23);
             this.pauseButton.TabIndex = 3;
             this.pauseButton.Text = "Pause";
             this.pauseButton.UseVisualStyleBackColor = true;
             this.pauseButton.Click += new System.EventHandler(this.Pause_Click);
             // 
-            // button4
+            // resetButton
             // 
             this.resetButton.Location = new System.Drawing.Point(302, 37);
-            this.resetButton.Name = "button4";
+            this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
             this.resetButton.TabIndex = 4;
             this.resetButton.Text = "Reset";
@@ -199,10 +200,14 @@
             this.Controls.Add(this.finishButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "RiftTimer";
             this.Text = "Rift Timer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RiftTimer_FormClosed);
             this.Load += new System.EventHandler(this.RiftTimer_Load);
+            this.Shown += new System.EventHandler(this.RiftTimer_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -10,6 +10,8 @@ using System.Timers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace rift_timer
 {
@@ -26,6 +28,8 @@ namespace rift_timer
         }
 
         private static String versionInfo = Application.ProductVersion;
+        private WebClient clientUpdateCheck = new WebClient();
+        private Boolean isUpdateAvailable = false;
 
         private Stopwatch time = new Stopwatch();
         private int tick = 0;
@@ -83,6 +87,53 @@ namespace rift_timer
 
             internalClock.Interval = 10;
             internalClock.Start();
+        }
+
+        private void RiftTimer_Shown(object sender, EventArgs e)
+        {
+            UpdateCheck();
+        }
+
+        // Check server for latest version, display notification
+        private void UpdateCheck()
+        {
+            // get latest version info from server
+            string latestVersion = clientUpdateCheck.DownloadString(@"http://zajriksrv.us.to/rift-timer/latest.json");
+            latestVersion = Regex.Match(latestVersion, @"\d+\.\d+\.\d+").ToString();
+
+            string[] latestVersionExplode = latestVersion.Split('.');
+            string[] currentVersionExplode = versionInfo.Split('.');
+
+            // Compare version strings
+            for (int i = 0; i < latestVersionExplode.Length; i++)
+            {
+                if (Convert.ToInt32(latestVersionExplode[i]) > Convert.ToInt32(currentVersionExplode[i]))
+                {
+                    isUpdateAvailable = true;
+                }
+            }
+
+            if (isUpdateAvailable)
+            {
+                UpdateDialog updateDialog = new UpdateDialog(latestVersion);
+                updateDialog.StartPosition = FormStartPosition.CenterParent;
+                updateDialog.ShowDialog();
+
+                if (updateDialog.DialogResult == DialogResult.OK)
+                {
+                    string updateUrl = "http://zajriksrv.us.to/rift-timer/rifttimer-{0}-{1}-{2}.rar";
+                    updateUrl = String.Format
+                        (
+                            updateUrl,
+                            latestVersionExplode[0],
+                            latestVersionExplode[1],
+                            latestVersionExplode[2]
+                        );
+                    Process.Start(updateUrl);
+                }
+
+                updateDialog.Dispose();
+            }
         }
 
         //// Button actions
