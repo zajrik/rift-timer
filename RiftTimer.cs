@@ -65,11 +65,17 @@ namespace rift_timer
             "Torment VI"
         };
 
-        private int playerClass = rift_timer.Properties.Settings.Default.playerClass;
-        private int difficulty = rift_timer.Properties.Settings.Default.difficulty;
+        private int playerClass = Properties.Settings.Default.playerClass;
+        private int difficulty = Properties.Settings.Default.difficulty;
+
+        private int posX = Properties.Settings.Default.posX;
+        private int posY = Properties.Settings.Default.posY;
 
         private void RiftTimer_Load(object sender, EventArgs e)
         {
+            Point startPos = new Point(posX, posY);
+            this.Location = startPos;
+
             CheckTime();
 
             pauseIndicator.Text = "paused";
@@ -359,6 +365,11 @@ namespace rift_timer
                 Application.Exit();
                 throw;
             }
+
+            // Save current window location
+            Properties.Settings.Default.posX = this.Location.X;
+            Properties.Settings.Default.posY = this.Location.Y;
+            Properties.Settings.Default.Save();
         }
     }
 }
