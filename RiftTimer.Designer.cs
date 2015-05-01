@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RiftTimer));
-            this.label1 = new System.Windows.Forms.Label();
+            this.timerDisplay = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
             this.finishButton = new System.Windows.Forms.Button();
             this.internalClock = new System.Windows.Forms.Timer(this.components);
@@ -39,23 +39,23 @@
             this.pauseIndicator = new System.Windows.Forms.Label();
             this.logBox = new System.Windows.Forms.ListBox();
             this.finishIndicator = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelMin = new System.Windows.Forms.Label();
+            this.labelSec = new System.Windows.Forms.Label();
+            this.labelMs = new System.Windows.Forms.Label();
             this.classesDropDown = new System.Windows.Forms.ComboBox();
             this.difficultyDropDown = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(212, 55);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "00:00:00";
+            this.timerDisplay.AutoSize = true;
+            this.timerDisplay.BackColor = System.Drawing.Color.Transparent;
+            this.timerDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timerDisplay.Location = new System.Drawing.Point(4, 9);
+            this.timerDisplay.Name = "label1";
+            this.timerDisplay.Size = new System.Drawing.Size(212, 55);
+            this.timerDisplay.TabIndex = 0;
+            this.timerDisplay.Text = "00:00:00";
             // 
             // startButton
             // 
@@ -134,31 +134,31 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(47, 54);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(23, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "min";
+            this.labelMin.AutoSize = true;
+            this.labelMin.BackColor = System.Drawing.Color.Transparent;
+            this.labelMin.Location = new System.Drawing.Point(47, 54);
+            this.labelMin.Name = "label2";
+            this.labelMin.Size = new System.Drawing.Size(23, 13);
+            this.labelMin.TabIndex = 8;
+            this.labelMin.Text = "min";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(114, 54);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "sec";
+            this.labelSec.AutoSize = true;
+            this.labelSec.Location = new System.Drawing.Point(114, 54);
+            this.labelSec.Name = "label3";
+            this.labelSec.Size = new System.Drawing.Size(24, 13);
+            this.labelSec.TabIndex = 9;
+            this.labelSec.Text = "sec";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(184, 54);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(20, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "ms";
+            this.labelMs.AutoSize = true;
+            this.labelMs.Location = new System.Drawing.Point(184, 54);
+            this.labelMs.Name = "label4";
+            this.labelMs.Size = new System.Drawing.Size(20, 13);
+            this.labelMs.TabIndex = 10;
+            this.labelMs.Text = "ms";
             // 
             // classesDropDown
             // 
@@ -189,9 +189,9 @@
             this.ClientSize = new System.Drawing.Size(406, 244);
             this.Controls.Add(this.difficultyDropDown);
             this.Controls.Add(this.classesDropDown);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelMs);
+            this.Controls.Add(this.labelSec);
+            this.Controls.Add(this.labelMin);
             this.Controls.Add(this.finishIndicator);
             this.Controls.Add(this.logBox);
             this.Controls.Add(this.pauseIndicator);
@@ -199,7 +199,7 @@
             this.Controls.Add(this.pauseButton);
             this.Controls.Add(this.finishButton);
             this.Controls.Add(this.startButton);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.timerDisplay);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -215,7 +215,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label timerDisplay;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button finishButton;
         private System.Windows.Forms.Timer internalClock;
@@ -224,9 +224,9 @@
         private System.Windows.Forms.Label pauseIndicator;
         private System.Windows.Forms.ListBox logBox;
         private System.Windows.Forms.Label finishIndicator;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelMin;
+        private System.Windows.Forms.Label labelSec;
+        private System.Windows.Forms.Label labelMs;
         private System.Windows.Forms.ComboBox classesDropDown;
         private System.Windows.Forms.ComboBox difficultyDropDown;
     }

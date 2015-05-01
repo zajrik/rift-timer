@@ -220,7 +220,7 @@ namespace rift_timer
         // Get and display current time of stopwatch
         private void CheckTime()
         {
-            label1.Text = time.Elapsed.ToString("mm\\:ss\\:ff");
+            timerDisplay.Text = time.Elapsed.ToString("mm\\:ss\\:ff");
         }
 
         // Set pause state, clear pause indicator if unpausing,
@@ -329,7 +329,7 @@ namespace rift_timer
             if (e.Index > -1)
             {
                 Color color = isSelected ?
-                    SystemColors.Highlight : e.Index % 2 == 0 ?
+                    SystemColors.Highlight : e.Index % 2 != 0 ?
                     Color.SkyBlue : Color.White;
 
                 SolidBrush bgBrush = new SolidBrush(color);
