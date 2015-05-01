@@ -27,6 +27,8 @@ namespace rift_timer
             }
         }
 
+        //private DebugConsole debugConsole = new DebugConsole();
+
         private static String versionInfo = Application.ProductVersion;
         private WebClient clientUpdateCheck = new WebClient();
         private Boolean isUpdateAvailable = false;
@@ -93,6 +95,9 @@ namespace rift_timer
 
             internalClock.Interval = 10;
             internalClock.Start();
+
+            //debugConsole.Show();
+            //debugConsole.WriteLine("foo");
         }
 
         private void RiftTimer_Shown(object sender, EventArgs e)

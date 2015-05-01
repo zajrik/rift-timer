@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
 
 namespace rift_timer
 {
@@ -19,9 +20,14 @@ namespace rift_timer
             AllocConsole();
         }
 
-        public void WriteLine(string line)
+        public void WriteLine
+            (
+                string text,
+                [CallerLineNumber] int line = 0,
+                [CallerMemberName] string caller = null
+            )
         {
-            Console.WriteLine(line);
+            Console.WriteLine(String.Format("[DEBUG] \"{0}\" at line {1} ({2})", text, line, caller));
         }
     }
 }
