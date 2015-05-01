@@ -284,9 +284,9 @@ namespace rift_timer
         // Bind selected class and difficulty to preferences
         private void BindSelectionData(int selectedClass, int selectedDifficulty)
         {
-            rift_timer.Properties.Settings.Default.playerClass = selectedClass;
-            rift_timer.Properties.Settings.Default.difficulty = selectedDifficulty;
-            rift_timer.Properties.Settings.Default.Save();
+            Properties.Settings.Default.playerClass = selectedClass;
+            Properties.Settings.Default.difficulty = selectedDifficulty;
+            Properties.Settings.Default.Save();
         }
 
         // Bind selection data when either of the class/difficulty dropdowns are changed
