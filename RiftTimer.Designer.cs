@@ -46,13 +46,13 @@
             this.difficultyDropDown = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // label1
+            // timerDisplay
             // 
             this.timerDisplay.AutoSize = true;
             this.timerDisplay.BackColor = System.Drawing.Color.Transparent;
             this.timerDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timerDisplay.Location = new System.Drawing.Point(4, 9);
-            this.timerDisplay.Name = "label1";
+            this.timerDisplay.Name = "timerDisplay";
             this.timerDisplay.Size = new System.Drawing.Size(212, 55);
             this.timerDisplay.TabIndex = 0;
             this.timerDisplay.Text = "00:00:00";
@@ -132,30 +132,30 @@
             this.finishIndicator.TabIndex = 7;
             this.finishIndicator.Text = "finishIndicator";
             // 
-            // label2
+            // labelMin
             // 
             this.labelMin.AutoSize = true;
             this.labelMin.BackColor = System.Drawing.Color.Transparent;
             this.labelMin.Location = new System.Drawing.Point(47, 54);
-            this.labelMin.Name = "label2";
+            this.labelMin.Name = "labelMin";
             this.labelMin.Size = new System.Drawing.Size(23, 13);
             this.labelMin.TabIndex = 8;
             this.labelMin.Text = "min";
             // 
-            // label3
+            // labelSec
             // 
             this.labelSec.AutoSize = true;
             this.labelSec.Location = new System.Drawing.Point(114, 54);
-            this.labelSec.Name = "label3";
+            this.labelSec.Name = "labelSec";
             this.labelSec.Size = new System.Drawing.Size(24, 13);
             this.labelSec.TabIndex = 9;
             this.labelSec.Text = "sec";
             // 
-            // label4
+            // labelMs
             // 
             this.labelMs.AutoSize = true;
             this.labelMs.Location = new System.Drawing.Point(184, 54);
-            this.labelMs.Name = "label4";
+            this.labelMs.Name = "labelMs";
             this.labelMs.Size = new System.Drawing.Size(20, 13);
             this.labelMs.TabIndex = 10;
             this.labelMs.Text = "ms";
