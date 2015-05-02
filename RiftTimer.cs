@@ -21,7 +21,7 @@ namespace rift_timer
         {
             InitializeComponent();
 
-            this.Text += " - v" + versionInfo;
+            //this.Text += " - v" + versionInfo;
 
             if (!Directory.Exists("logs"))
             {
@@ -202,7 +202,6 @@ namespace rift_timer
                 time.Stop();
                 CheckTime();
                 SetPauseState(true);
-                BindLogData();
             }
         }
 
