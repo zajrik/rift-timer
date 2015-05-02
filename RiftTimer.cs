@@ -21,6 +21,8 @@ namespace rift_timer
         {
             InitializeComponent();
 
+            this.Text += " - v" + versionInfo;
+
             if (!Directory.Exists("logs"))
             {
                 Directory.CreateDirectory("logs");
@@ -97,7 +99,6 @@ namespace rift_timer
             internalClock.Start();
 
             //debugConsole.Show();
-            //debugConsole.WriteLine("foo");
         }
 
         private void RiftTimer_Shown(object sender, EventArgs e)
