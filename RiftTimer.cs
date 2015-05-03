@@ -21,8 +21,6 @@ namespace rift_timer
         {
             InitializeComponent();
 
-            //this.Text += " - v" + versionInfo;
-
             if (!Directory.Exists("logs"))
             {
                 Directory.CreateDirectory("logs");
