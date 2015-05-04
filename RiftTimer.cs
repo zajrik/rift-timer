@@ -131,18 +131,12 @@ namespace rift_timer
 
                 if (updateDialog.DialogResult == DialogResult.OK)
                 {
-                    string updateUrl = "http://zajriksrv.us.to/rift-timer/rifttimer-{0}-{1}-{2}.rar";
-                    updateUrl = String.Format
-                        (
-                            updateUrl,
-                            latestVersionExplode[0],
-                            latestVersionExplode[1],
-                            latestVersionExplode[2]
-                        );
-                    Process.Start(updateUrl);
+                    updateDialog.Dispose();
                 }
-
-                updateDialog.Dispose();
+                else
+                {
+                    updateDialog.Dispose();
+                }
             }
         }
 

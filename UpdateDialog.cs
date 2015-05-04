@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,12 +19,24 @@ namespace rift_timer
 
             installedLabel.Text = currentVersion;
             latestLabel.Text = latestVersion;
+            latestVersionExplode = latestVersion.Split('.');
         }
 
         string currentVersion = Application.ProductVersion;
+        string[] latestVersionExplode;
 
         private void YesButton_Click(object sender, EventArgs e)
         {
+            string updateUrl = "http://zajriksrv.us.to/rift-timer/rifttimer-{0}-{1}-{2}.rar";
+            updateUrl = String.Format
+                (
+                    updateUrl,
+                    latestVersionExplode[0],
+                    latestVersionExplode[1],
+                    latestVersionExplode[2]
+                );
+            Process.Start(updateUrl);
+
             DialogResult = DialogResult.OK;
         }
 
