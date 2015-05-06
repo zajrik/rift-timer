@@ -126,7 +126,7 @@ namespace rift_timer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
                 isCheckSuccessful = false;
             }
 
