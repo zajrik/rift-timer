@@ -70,5 +70,29 @@ namespace rift_timer.Properties {
                 this["posY"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool settingsChosen {
+            get {
+                return ((bool)(this["settingsChosen"]));
+            }
+            set {
+                this["settingsChosen"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int userTheme {
+            get {
+                return ((int)(this["userTheme"]));
+            }
+            set {
+                this["userTheme"] = value;
+            }
+        }
     }
 }

@@ -16,7 +16,14 @@ namespace rift_timer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RiftTimer());
+            try
+            {
+                Application.Run(new Settings());
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

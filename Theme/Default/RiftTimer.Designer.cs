@@ -1,4 +1,4 @@
-﻿namespace rift_timer
+﻿namespace rift_timer.Theme.Default
 {
     partial class RiftTimer
     {
@@ -44,6 +44,9 @@
             this.labelMs = new System.Windows.Forms.Label();
             this.classesDropDown = new System.Windows.Forms.ComboBox();
             this.difficultyDropDown = new System.Windows.Forms.ComboBox();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // timerDisplay
@@ -181,12 +184,27 @@
             this.difficultyDropDown.TabIndex = 12;
             this.difficultyDropDown.SelectedIndexChanged += new System.EventHandler(this.DropDown_SelectedIndexChanged);
             // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextMenu.Name = "contextMenuStrip1";
+            this.contextMenu.Size = new System.Drawing.Size(117, 26);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.toolStripMenuItem1.Text = "&Settings";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.MenuItem_Settings_Click);
+            // 
             // RiftTimer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(406, 244);
+            this.ContextMenuStrip = this.contextMenu;
             this.Controls.Add(this.difficultyDropDown);
             this.Controls.Add(this.classesDropDown);
             this.Controls.Add(this.labelMs);
@@ -208,6 +226,8 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RiftTimer_FormClosed);
             this.Load += new System.EventHandler(this.RiftTimer_Load);
             this.Shown += new System.EventHandler(this.RiftTimer_Shown);
+            this.Move += new System.EventHandler(this.RiftTimer_Move);
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,6 +249,7 @@
         private System.Windows.Forms.Label labelMs;
         private System.Windows.Forms.ComboBox classesDropDown;
         private System.Windows.Forms.ComboBox difficultyDropDown;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
-

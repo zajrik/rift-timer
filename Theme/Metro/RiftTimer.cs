@@ -1,23 +1,23 @@
-﻿using System;
+﻿using MetroFramework.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
-using System.Timers;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.Net;
-using System.Text.RegularExpressions;
 
-namespace rift_timer
+namespace rift_timer.Theme.Metro
 {
-    public partial class RiftTimer : Form
+    public partial class RiftTimer : MetroForm
     {
-        public RiftTimer()
+        public RiftTimer(List<string> list = null, int entry = 0)
         {
             InitializeComponent();
 
@@ -25,6 +25,14 @@ namespace rift_timer
             {
                 Directory.CreateDirectory("logs");
             }
+
+            this.Text = "Rift Timer";
+            dialogPanel.Location = new Point(1, 73);
+            dialogPanel.Hide();
+
+            // recycle rifts list if coming from a theme switch
+            if (list != null) riftsList = list;
+            if (entry > 0) entryNum = entry;
         }
 
         //private DebugConsole debugConsole = new DebugConsole();
@@ -33,16 +41,18 @@ namespace rift_timer
         private WebClient clientUpdateCheck = new WebClient();
         private Boolean isUpdateAvailable = false;
 
+        private UpdateDialog updateDialog = new UpdateDialog();
+
         private Stopwatch time = new Stopwatch();
         private int tick = 0;
-
-        private List<string> riftsList = new List<string>();
-        private string entryStr;
-        private int entryNum = 0;
 
         private Boolean isRunning = false;
         private Boolean isPaused = false;
         private Boolean isFinished = false;
+
+        public List<string> riftsList = new List<string>();
+        public int entryNum = 0;
+        private string entryStr;
 
         private List<string> classesList = new List<string>
         {
@@ -102,13 +112,14 @@ namespace rift_timer
         private void RiftTimer_Shown(object sender, EventArgs e)
         {
             UpdateCheck();
+            logBox.ClearSelected();
         }
 
         // Check server for latest version, display notification
         private void UpdateCheck()
         {
             // get latest version info from server
-            string latestVersion = clientUpdateCheck.DownloadString(@"http://zajriksrv.us.to/rift-timer/latest.json");
+            string latestVersion = clientUpdateCheck.DownloadString(@"http://zajriksrv.us.to/rift-timer/metro/latest.json");
             latestVersion = Regex.Match(latestVersion, @"\d+\.\d+\.\d+").ToString();
 
             string[] latestVersionExplode = latestVersion.Split('.');
@@ -125,19 +136,22 @@ namespace rift_timer
 
             if (isUpdateAvailable)
             {
-                UpdateDialog updateDialog = new UpdateDialog(latestVersion);
-                updateDialog.StartPosition = FormStartPosition.CenterParent;
-                updateDialog.ShowDialog();
-
-                if (updateDialog.DialogResult == DialogResult.OK)
-                {
-                    updateDialog.Dispose();
-                }
-                else
-                {
-                    updateDialog.Dispose();
-                }
+                dialogPanel.Controls.Add(updateDialog);
+                dialogPanel.Show();
+                updateDialog.SetDialogInfo(latestVersion);
+                updateDialog.VisibleChanged += HidePanel;
             }
+            else
+            {
+                updateDialog.Dispose();
+            }
+        }
+
+        // Hide the update dialog container, handle the dialog choice
+        private void HidePanel(object sender, EventArgs e)
+        {
+            dialogPanel.Hide();
+            updateDialog.Dispose();
         }
 
         //// Button actions
@@ -322,7 +336,7 @@ namespace rift_timer
             {
                 Color color = isSelected ?
                     SystemColors.Highlight : e.Index % 2 != 0 ?
-                    Color.SkyBlue : Color.White;
+                    Color.FromArgb(64, 64, 64) : Color.FromArgb(34, 34, 34);
 
                 SolidBrush bgBrush = new SolidBrush(color);
                 SolidBrush txtBrush = new SolidBrush(e.ForeColor);
@@ -330,7 +344,7 @@ namespace rift_timer
                 e.Graphics.FillRectangle(bgBrush, e.Bounds);
                 e.Graphics.DrawString
                     (
-                        logBox.GetItemText(logBox.Items[e.Index]), 
+                        logBox.GetItemText(logBox.Items[e.Index]),
                         e.Font,
                         txtBrush,
                         e.Bounds,
@@ -344,29 +358,29 @@ namespace rift_timer
         }
         //// End log box code
 
-        // Execute on exit
-        private void RiftTimer_FormClosed(object sender, FormClosedEventArgs e)
+        // Context menu item handling
+        private void MenuItem_Settings_Click(object sender, EventArgs e)
         {
-            // Log rifts list to file
-            try
-            {
-                if (riftsList.Count != 0)
-                {
-                    String timeStamp = DateTime.Now.ToString("MM.dd.yyyy_HH.mm.ss");
-                    File.WriteAllLines(String.Format("logs\\log_{0}.txt", timeStamp), riftsList);
-                }
-            }
-            catch
-            {
-                MessageBox.Show("There was an error creating a log file for this session. Press OK to exit");
-                Application.Exit();
-                throw;
-            }
+            Properties.Settings.Default.settingsChosen = false;
+            Properties.Settings.Default.Save();
+            DialogResult = DialogResult.OK;
+        }
 
+        private void RiftTimer_Move(object sender, EventArgs e)
+        {
             // Save current window location
             Properties.Settings.Default.posX = this.Location.X;
             Properties.Settings.Default.posY = this.Location.Y;
             Properties.Settings.Default.Save();
+        }
+
+        // Execute on exit
+        private void RiftTimer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Properties.Settings.Default.settingsChosen)
+            {
+                DialogResult = DialogResult.Cancel;
+            }
         }
     }
 }
