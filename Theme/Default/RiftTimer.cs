@@ -16,7 +16,13 @@ namespace rift_timer.Theme.Default
 {
     public partial class RiftTimer : Form
     {
-        public RiftTimer(List<string> list = null, int entry = 0, bool updateNotify = false)
+        public RiftTimer
+            (
+                List<string> list = null, 
+                int entry = 0, 
+                bool updateNotify = false, 
+                string latest = null
+            )
         {
             InitializeComponent();
 
@@ -31,12 +37,15 @@ namespace rift_timer.Theme.Default
 
             // Will display update notification when UpdateCheck is run
             isUpdateAvailable = updateNotify;
+            if (latest != null) latestVersion = latest;
+            else latestVersion = Application.ProductVersion;
         }
 
         //private DebugConsole debugConsole = new DebugConsole();
 
         private WebClient clientUpdateCheck = new WebClient();
-        private Boolean isUpdateAvailable = false;
+        private Boolean isUpdateAvailable;
+        private string latestVersion;
 
         private Stopwatch time = new Stopwatch();
         private int tick = 0;
@@ -110,15 +119,11 @@ namespace rift_timer.Theme.Default
             logBox.ClearSelected();
         }
 
-        // Check server for latest version, display notification
+        // Display notification if update is available
         private void UpdateCheck()
         {
             if (isUpdateAvailable)
             {
-                // get latest version info from server
-                string latestVersion = clientUpdateCheck.DownloadString(@"http://zajriksrv.us.to/rift-timer/latest.json");
-                latestVersion = Regex.Match(latestVersion, @"\d+\.\d+\.\d+").ToString();
-
                 UpdateDialog updateDialog = new UpdateDialog(latestVersion);
                 updateDialog.StartPosition = FormStartPosition.CenterParent;
                 updateDialog.ShowDialog();
@@ -346,9 +351,9 @@ namespace rift_timer.Theme.Default
             DialogResult = DialogResult.OK;
         }
 
+        // Save window location when window is moved
         private void RiftTimer_Move(object sender, EventArgs e)
         {
-            // Save current window location
             Properties.Settings.Default.posX = this.Location.X;
             Properties.Settings.Default.posY = this.Location.Y;
             Properties.Settings.Default.Save();

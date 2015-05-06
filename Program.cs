@@ -22,7 +22,7 @@ namespace rift_timer
             }
             catch (Exception ex)
             {
-
+                //MessageBox.Show(ex.ToString());
             }
         }
     }

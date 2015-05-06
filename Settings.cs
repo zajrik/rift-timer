@@ -19,8 +19,8 @@ namespace rift_timer
         {
             InitializeComponent();
 
-            comboBox1.DataSource = themes;
-            comboBox1.SelectedIndex = Properties.Settings.Default.userTheme;
+            themeChooser.DataSource = themes;
+            themeChooser.SelectedIndex = Properties.Settings.Default.userTheme;
 
             UpdateCheck();
             
@@ -50,7 +50,9 @@ namespace rift_timer
 
         private static String versionInfo = Application.ProductVersion;
         private WebClient clientUpdateCheck = new WebClient();
+        private Boolean isCheckSuccessful = false;
         private Boolean isUpdateAvailable = false;
+        private string latestVersion = "";
 
         // Save settings and launch the chosen themed Rift Timer
         private void Accept_Click(object sender, EventArgs e)
@@ -60,11 +62,11 @@ namespace rift_timer
 
             // Copy format for new themes, just change object
             // names to match the classes and namespacing
-            switch (comboBox1.SelectedIndex)
+            switch (themeChooser.SelectedIndex)
             {
                 // Default theme
                 case 0:
-                    var riftTimer = new Theme.Default.RiftTimer(list, entry, isUpdateAvailable);
+                    var riftTimer = new Theme.Default.RiftTimer(list, entry, isUpdateAvailable, latestVersion);
                     this.Hide();
                     riftTimer.ShowDialog();
                     if (riftTimer.DialogResult == DialogResult.OK)
@@ -85,7 +87,7 @@ namespace rift_timer
                 
                 // Metro theme
                 case 1:
-                    var riftTimerMetro = new Theme.Metro.RiftTimer(list, entry, isUpdateAvailable);
+                    var riftTimerMetro = new Theme.Metro.RiftTimer(list, entry, isUpdateAvailable, latestVersion);
                     this.Hide();
                     riftTimerMetro.ShowDialog();
                     if (riftTimerMetro.DialogResult == DialogResult.OK)
@@ -106,31 +108,44 @@ namespace rift_timer
             }
         }
 
+        // Save selected options
         private void SaveSelection()
         {
-            Properties.Settings.Default.userTheme = comboBox1.SelectedIndex;
+            Properties.Settings.Default.userTheme = themeChooser.SelectedIndex;
             Properties.Settings.Default.Save();
         }
 
         private void UpdateCheck()
         {
             // get latest version info from server
-            string latestVersion = clientUpdateCheck.DownloadString(@"http://zajriksrv.us.to/rift-timer/latest.json");
-            latestVersion = Regex.Match(latestVersion, @"\d+\.\d+\.\d+").ToString();
+            try
+            {
+                latestVersion = clientUpdateCheck.DownloadString(@"http://zajriksrv.us.to/rift-timer/latest.json");
+                latestVersion = Regex.Match(latestVersion, @"\d+\.\d+\.\d+").ToString();
+                isCheckSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                isCheckSuccessful = false;
+            }
 
             string[] latestVersionExplode = latestVersion.Split('.');
             string[] currentVersionExplode = versionInfo.Split('.');
 
             // Compare version strings
-            for (int i = 0; i < latestVersionExplode.Length; i++)
+            if (isCheckSuccessful)
             {
-                if (Convert.ToInt32(currentVersionExplode[i]) > Convert.ToInt32(latestVersionExplode[i]))
+                for (int i = 0; i < latestVersionExplode.Length; i++)
                 {
-                    break;
-                }
-                else if (Convert.ToInt32(latestVersionExplode[i]) > Convert.ToInt32(currentVersionExplode[i]))
-                {
-                    isUpdateAvailable = true;
+                    if (Convert.ToInt32(currentVersionExplode[i]) > Convert.ToInt32(latestVersionExplode[i]))
+                    {
+                        break;
+                    }
+                    else if (Convert.ToInt32(latestVersionExplode[i]) > Convert.ToInt32(currentVersionExplode[i]))
+                    {
+                        isUpdateAvailable = true;
+                    }
                 } 
             }
         }
@@ -149,13 +164,12 @@ namespace rift_timer
             catch
             {
                 MessageBox.Show("There was an error creating a log file for this session. Press OK to exit");
-                //Application.Exit();
-                //throw;
             }
         }
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Make sure to save logs if closing application by closing settings
             if (!Properties.Settings.Default.settingsChosen)
             {
                 LogToFile(list);
