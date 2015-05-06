@@ -29,7 +29,7 @@ namespace rift_timer.Theme.Metro
 
         private void metroButton2_Click(object sender, EventArgs e)
         {
-            string updateUrl = "http://zajriksrv.us.to/rift-timer/metro/rifttimer-metro-{0}-{1}-{2}.rar";
+            string updateUrl = "http://zajriksrv.us.to/rift-timer/rifttimer-{0}-{1}-{2}.rar";
             updateUrl = String.Format
                 (
                     updateUrl,

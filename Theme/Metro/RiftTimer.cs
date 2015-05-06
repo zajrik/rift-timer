@@ -17,7 +17,7 @@ namespace rift_timer.Theme.Metro
 {
     public partial class RiftTimer : MetroForm
     {
-        public RiftTimer(List<string> list = null, int entry = 0)
+        public RiftTimer(List<string> list = null, int entry = 0, bool updateNotify = false)
         {
             InitializeComponent();
 
@@ -33,11 +33,12 @@ namespace rift_timer.Theme.Metro
             // recycle rifts list if coming from a theme switch
             if (list != null) riftsList = list;
             if (entry > 0) entryNum = entry;
+
+            isUpdateAvailable = updateNotify;
         }
 
         //private DebugConsole debugConsole = new DebugConsole();
 
-        private static String versionInfo = Application.ProductVersion;
         private WebClient clientUpdateCheck = new WebClient();
         private Boolean isUpdateAvailable = false;
 
@@ -118,24 +119,12 @@ namespace rift_timer.Theme.Metro
         // Check server for latest version, display notification
         private void UpdateCheck()
         {
-            // get latest version info from server
-            string latestVersion = clientUpdateCheck.DownloadString(@"http://zajriksrv.us.to/rift-timer/metro/latest.json");
-            latestVersion = Regex.Match(latestVersion, @"\d+\.\d+\.\d+").ToString();
-
-            string[] latestVersionExplode = latestVersion.Split('.');
-            string[] currentVersionExplode = versionInfo.Split('.');
-
-            // Compare version strings
-            for (int i = 0; i < latestVersionExplode.Length; i++)
-            {
-                if (Convert.ToInt32(latestVersionExplode[i]) > Convert.ToInt32(currentVersionExplode[i]))
-                {
-                    isUpdateAvailable = true;
-                }
-            }
-
             if (isUpdateAvailable)
             {
+                // get latest version info from server
+                string latestVersion = clientUpdateCheck.DownloadString(@"http://zajriksrv.us.to/rift-timer/latest.json");
+                latestVersion = Regex.Match(latestVersion, @"\d+\.\d+\.\d+").ToString();
+
                 dialogPanel.Controls.Add(updateDialog);
                 dialogPanel.Show();
                 updateDialog.SetDialogInfo(latestVersion);
