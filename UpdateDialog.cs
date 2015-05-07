@@ -27,7 +27,7 @@ namespace rift_timer
 
         private void YesButton_Click(object sender, EventArgs e)
         {
-            string updateUrl = "http://zajriksrv.us.to/rift-timer/rifttimer-{0}-{1}-{2}.rar";
+            string updateUrl = "http://zajriksrv.us.to/rift-timer/rifttimer-{0}-{1}-{2}.zip";
             updateUrl = String.Format
                 (
                     updateUrl,
