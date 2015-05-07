@@ -22,8 +22,16 @@ namespace rift_timer
             themeChooser.DataSource = themes;
             themeChooser.SelectedIndex = Properties.Settings.Default.userTheme;
 
-            UpdateCheck();
+            // Show server connection message
+            notifier.Icon = new Icon("res\\appicon.ico");
+            notifier.Visible = true;
+            notifier.ShowBalloonTip(10000);
             
+            UpdateCheck();
+
+            // Hide after UpdateCheck finishes, or 10 secs by default
+            notifier.Visible = false;
+
             if (Properties.Settings.Default.settingsChosen)
             {
                 Accept_Click(this, new EventArgs());
@@ -126,7 +134,7 @@ namespace rift_timer
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
+                MessageBox.Show("Could not connect to update server.");
                 isCheckSuccessful = false;
             }
 
