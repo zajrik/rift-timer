@@ -161,6 +161,10 @@ namespace rift_timer.Theme.Metro
             finishIndicator.Text = "finished";
             finishIndicator.Hide();
 
+            pauseButton.Enabled = false;
+            finishButton.Enabled = false;
+            resetButton.Enabled = false;
+
             logBox.DataSource = riftsList;
             logBox.DrawMode = DrawMode.OwnerDrawFixed;
 
