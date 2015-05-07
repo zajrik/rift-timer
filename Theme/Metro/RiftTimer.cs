@@ -365,6 +365,13 @@ namespace rift_timer.Theme.Metro
             DialogResult = DialogResult.OK;
         }
 
+        // Toggle panel height collapse mode via context menu item
+        private void MenuItem_ToggleCollapse_Click(object sender, EventArgs e)
+        {
+            if (this.Size.Height == 282) this.Size = new Size(422, 95);
+            else this.Size = new Size(422, 282);
+        }
+
         // Save window location when window is moved
         private void RiftTimer_Move(object sender, EventArgs e)
         {

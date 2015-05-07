@@ -371,5 +371,12 @@ namespace rift_timer.Theme.Default
                 DialogResult = DialogResult.Cancel;
             }
         }
+
+        // Toggle panel height collapse mode via context menu item
+        private void ToggleCollapse_Click(object sender, EventArgs e)
+        {
+            if (this.Size.Height == 282) this.Size = new Size(422, 106);
+            else this.Size = new Size(422, 282);
+        }
     }
 }

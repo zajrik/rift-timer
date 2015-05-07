@@ -47,7 +47,8 @@
             this.internalClock = new System.Windows.Forms.Timer(this.components);
             this.dialogPanel = new System.Windows.Forms.Panel();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextItemToggleCollapse = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -225,16 +226,24 @@
             // contextMenu
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
+            this.contextItemToggleCollapse,
+            this.contextItemSettings});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(117, 26);
+            this.contextMenu.Size = new System.Drawing.Size(196, 70);
             // 
-            // toolStripMenuItem1
+            // contextItemToggleCollapse
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
-            this.toolStripMenuItem1.Text = "&Settings";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.MenuItem_Settings_Click);
+            this.contextItemToggleCollapse.Name = "contextItemToggleCollapse";
+            this.contextItemToggleCollapse.Size = new System.Drawing.Size(195, 22);
+            this.contextItemToggleCollapse.Text = "Toggle &compact mode";
+            this.contextItemToggleCollapse.Click += new System.EventHandler(this.MenuItem_ToggleCollapse_Click);
+            // 
+            // contextItemSettings
+            // 
+            this.contextItemSettings.Name = "contextItemSettings";
+            this.contextItemSettings.Size = new System.Drawing.Size(195, 22);
+            this.contextItemSettings.Text = "&Settings";
+            this.contextItemSettings.Click += new System.EventHandler(this.MenuItem_Settings_Click);
             // 
             // RiftTimer
             // 
@@ -259,6 +268,8 @@
             this.Controls.Add(this.titleLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(422, 282);
+            this.MinimumSize = new System.Drawing.Size(422, 95);
             this.Name = "RiftTimer";
             this.Resizable = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultLocation;
@@ -293,7 +304,8 @@
         private System.Windows.Forms.Timer internalClock;
         private System.Windows.Forms.Panel dialogPanel;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem contextItemSettings;
+        private System.Windows.Forms.ToolStripMenuItem contextItemToggleCollapse;
 
 
 

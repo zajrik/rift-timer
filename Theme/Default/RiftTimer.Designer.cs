@@ -45,7 +45,8 @@
             this.classesDropDown = new System.Windows.Forms.ComboBox();
             this.difficultyDropDown = new System.Windows.Forms.ComboBox();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuItemToggleCollapse = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -187,16 +188,24 @@
             // contextMenu
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
+            this.contextMenuItemToggleCollapse,
+            this.contextMenuItemSettings});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(117, 26);
+            this.contextMenu.Size = new System.Drawing.Size(196, 70);
             // 
-            // toolStripMenuItem1
+            // contextMenuItemToggleCollapse
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
-            this.toolStripMenuItem1.Text = "&Settings";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.MenuItem_Settings_Click);
+            this.contextMenuItemToggleCollapse.Name = "contextMenuItemToggleCollapse";
+            this.contextMenuItemToggleCollapse.Size = new System.Drawing.Size(195, 22);
+            this.contextMenuItemToggleCollapse.Text = "Toggle &compact mode";
+            this.contextMenuItemToggleCollapse.Click += new System.EventHandler(this.ToggleCollapse_Click);
+            // 
+            // contextMenuItemSettings
+            // 
+            this.contextMenuItemSettings.Name = "contextMenuItemSettings";
+            this.contextMenuItemSettings.Size = new System.Drawing.Size(195, 22);
+            this.contextMenuItemSettings.Text = "&Settings";
+            this.contextMenuItemSettings.Click += new System.EventHandler(this.MenuItem_Settings_Click);
             // 
             // RiftTimer
             // 
@@ -250,6 +259,7 @@
         private System.Windows.Forms.ComboBox classesDropDown;
         private System.Windows.Forms.ComboBox difficultyDropDown;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuItemSettings;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuItemToggleCollapse;
     }
 }
