@@ -29,7 +29,7 @@ inside the program window.
 
 Compact mode can be activated via the right click menu as well (click or press 'c'
 while the menu is opened). Compact mode will shorten the height of the 
-window, cutton off the log box and class/difficulty dropdown menus. The log
+window, cutting off the log box and class/difficulty dropdown menus. The log
 box will still update in compact mode, and rift times will still be saved 
 and able to be viewed at any time by toggling off compact mode.
 
