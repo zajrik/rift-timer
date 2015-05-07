@@ -34,3 +34,8 @@ box will still update in compact mode, and rift times will still be saved
 and able to be viewed at any time by toggling off compact mode.
 
 <p align="center"><img src="_res/example4.png"/></p>
+
+# Hotkeys
+
+Using the modifier Shift+Ctrl, there are 4 global hotkeys available to Rift Timer.
+S to start/resume, F to finish, E to pause, and R to reset.
