@@ -17,3 +17,19 @@ finished timer, along with information like the currently selected player
 class and the currently selected difficulty. The list of completed rifts will
 be logged to a timestamped file in the logs folder, found in the Rift Timer
 folder wherever you put it after unzipping.
+
+# Themes and Modes
+
+An alternative theme is available, accessed via the theme chooser in the
+settings pane. The settings pane can be accessed by right clicking anywhere
+inside the program window.
+
+<p align="center"><img src="_res/example3.png"/></p>
+<p align="center"><img src="_res/example5.png"/></p>
+
+Compact mode can be activated via the right click menu as well. Compact mode
+will shorten the height of the window, cutton off the log box and class/difficulty
+dropdown menus. The log box will still update in compact mode, and rift times
+will still be saved and able to be viewed at any time by toggling off compact mode.
+
+<p align="center"><img src="_res/example4.png"/></p>
