@@ -198,7 +198,7 @@
             this.contextMenuItemToggleCollapse.Name = "contextMenuItemToggleCollapse";
             this.contextMenuItemToggleCollapse.Size = new System.Drawing.Size(195, 22);
             this.contextMenuItemToggleCollapse.Text = "Toggle &compact mode";
-            this.contextMenuItemToggleCollapse.Click += new System.EventHandler(this.ToggleCollapse_Click);
+            this.contextMenuItemToggleCollapse.Click += new System.EventHandler(this.MenuItem_ToggleCollapse_Click);
             // 
             // contextMenuItemSettings
             // 

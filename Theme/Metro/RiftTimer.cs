@@ -44,10 +44,9 @@ namespace rift_timer.Theme.Metro
             InitializeComponent();
 
             if (!Directory.Exists("logs"))
-            {
                 Directory.CreateDirectory("logs");
-            }
 
+            // Set window title, position/hide dialogPanel
             this.Text = "Rift Timer";
             dialogPanel.Location = new Point(1, 73);
             dialogPanel.Hide();
@@ -314,32 +313,19 @@ namespace rift_timer.Theme.Metro
                 difficultyDropDown.Enabled = true;
             }
 
-            // Flash pause indicator at 15 tick intervals
             if (isPaused)
             {
-                if (tick <= 15)
-                {
-                    pauseIndicator.Show();
-                }
-                else if (tick <= 30)
-                {
-                    pauseIndicator.Hide();
-                }
-                else if (tick > 30)
-                {
-                    tick = 0;
-                }
+                // Flash pause indicator at 15 tick intervals
+                if (tick <= 15) pauseIndicator.Show();
+                else if (tick <= 30) pauseIndicator.Hide();
+                else if (tick > 30) tick = 0;
                 tick++;
-            }
-
-            // Show/hide finish indicator
-            if (isFinished)
-            {
-                finishIndicator.Show();
             }
             else
             {
-                finishIndicator.Hide();
+                // Show/hide finish indicator
+                if (isFinished) finishIndicator.Show();
+                else finishIndicator.Hide(); 
             }
         }
 
@@ -409,7 +395,8 @@ namespace rift_timer.Theme.Metro
         }
         //// End log box code
 
-        // Context menu item handling
+        //// Context menu item handling
+        // Launch settings window, disposes of current window but preserves log data
         private void MenuItem_Settings_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.settingsChosen = false;
@@ -423,6 +410,7 @@ namespace rift_timer.Theme.Metro
             if (this.Size.Height == 282) this.Size = new Size(422, 95);
             else this.Size = new Size(422, 282);
         }
+        //// End context menu item handling
 
         // Save window location when window is moved
         private void RiftTimer_Move(object sender, EventArgs e)
@@ -441,9 +429,7 @@ namespace rift_timer.Theme.Metro
 
             // Close and don't open settings
             if (Properties.Settings.Default.settingsChosen)
-            {
                 DialogResult = DialogResult.Cancel;
-            }
         }
     }
 }

@@ -43,9 +43,7 @@ namespace rift_timer.Theme.Default
             InitializeComponent();
 
             if (!Directory.Exists("logs"))
-            {
                 Directory.CreateDirectory("logs");
-            }
 
             // Register global hotkeys
             int id = -1;
@@ -184,14 +182,7 @@ namespace rift_timer.Theme.Default
                 updateDialog.StartPosition = FormStartPosition.CenterParent;
                 updateDialog.ShowDialog();
 
-                if (updateDialog.DialogResult == DialogResult.OK)
-                {
-                    updateDialog.Dispose();
-                }
-                else
-                {
-                    updateDialog.Dispose();
-                }
+                updateDialog.Dispose();
             }
         }
 
@@ -304,32 +295,19 @@ namespace rift_timer.Theme.Default
                 difficultyDropDown.Enabled = true;
             }
 
-            // Flash pause indicator at 15 tick intervals
             if (isPaused)
             {
-                if (tick <= 15)
-                {
-                    pauseIndicator.Show();
-                }
-                else if (tick <= 30)
-                {
-                    pauseIndicator.Hide();
-                }
-                else if (tick > 30)
-                {
-                    tick = 0;
-                }
+                // Flash pause indicator at 15 tick intervals
+                if (tick <= 15) pauseIndicator.Show();
+                else if (tick <= 30) pauseIndicator.Hide();
+                else if (tick > 30) tick = 0;
                 tick++;
-            }
-
-            // Show/hide finish indicator
-            if (isFinished)
-            {
-                finishIndicator.Show();
             }
             else
             {
-                finishIndicator.Hide();
+                // Show/hide finish indicator
+                if (isFinished) finishIndicator.Show();
+                else finishIndicator.Hide(); 
             }
         }
 
@@ -399,13 +377,22 @@ namespace rift_timer.Theme.Default
         }
         //// End log box code
 
-        // Context menu item handling
+        //// Context menu item handling
+        // Launch settings window, disposes of current window but preserves log data
         private void MenuItem_Settings_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.settingsChosen = false;
             Properties.Settings.Default.Save();
             DialogResult = DialogResult.OK;
         }
+
+        // Toggle panel height collapse mode via context menu item
+        private void MenuItem_ToggleCollapse_Click(object sender, EventArgs e)
+        {
+            if (this.Size.Height == 282) this.Size = new Size(422, 106);
+            else this.Size = new Size(422, 282);
+        }
+        //// End context menu item handling
 
         // Save window location when window is moved
         private void RiftTimer_Move(object sender, EventArgs e)
@@ -424,16 +411,7 @@ namespace rift_timer.Theme.Default
 
             // Close and don't open settings
             if (Properties.Settings.Default.settingsChosen)
-            {
                 DialogResult = DialogResult.Cancel;
-            }
-        }
-
-        // Toggle panel height collapse mode via context menu item
-        private void ToggleCollapse_Click(object sender, EventArgs e)
-        {
-            if (this.Size.Height == 282) this.Size = new Size(422, 106);
-            else this.Size = new Size(422, 282);
         }
     }
 }
