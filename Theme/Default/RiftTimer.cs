@@ -153,6 +153,10 @@ namespace rift_timer.Theme.Default
             finishIndicator.Text = "finished";
             finishIndicator.Hide();
 
+            pauseButton.Enabled = false;
+            finishButton.Enabled = false;
+            resetButton.Enabled = false;
+
             logBox.DataSource = riftsList;
             logBox.DrawMode = DrawMode.OwnerDrawFixed;
 
@@ -187,12 +191,17 @@ namespace rift_timer.Theme.Default
         }
 
         //// Button actions
+        /// TODO: move button enable/disable patterns into separate method
         // Start button
         private void Start_Click(object sender, EventArgs e)
         {
             if ((!isRunning && !isFinished) || isPaused)
             {
                 time.Start();
+                startButton.Enabled = false;
+                pauseButton.Enabled = true;
+                finishButton.Enabled = true;
+                resetButton.Enabled = true;
                 isRunning = true;
                 isFinished = false;
                 SetPauseState(false);
@@ -200,6 +209,10 @@ namespace rift_timer.Theme.Default
             else if (isFinished)
             {
                 time.Restart();
+                startButton.Enabled = false;
+                pauseButton.Enabled = true;
+                finishButton.Enabled = true;
+                resetButton.Enabled = true;
                 isRunning = true;
                 isFinished = false;
                 SetPauseState(false);
@@ -212,6 +225,10 @@ namespace rift_timer.Theme.Default
             if (isRunning)
             {
                 time.Stop();
+                startButton.Enabled = true;
+                pauseButton.Enabled = false;
+                finishButton.Enabled = false;
+                resetButton.Enabled = true;
                 isRunning = false;
                 SetPauseState(false);
                 isFinished = true;
@@ -248,6 +265,10 @@ namespace rift_timer.Theme.Default
         {
             time.Stop();
             time.Reset();
+            startButton.Enabled = true;
+            pauseButton.Enabled = false;
+            finishButton.Enabled = false;
+            resetButton.Enabled = false;
             SetPauseState(false);
             isRunning = false;
             isFinished = false;
@@ -268,6 +289,8 @@ namespace rift_timer.Theme.Default
             if (state)
             {
                 isPaused = true;
+                startButton.Enabled = true;
+                pauseButton.Enabled = false;
                 startButton.Text = "Resume";
             }
             else
@@ -293,6 +316,7 @@ namespace rift_timer.Theme.Default
             {
                 classesDropDown.Enabled = true;
                 difficultyDropDown.Enabled = true;
+                //pauseButton.Enabled = false;
             }
 
             if (isPaused)
@@ -307,7 +331,7 @@ namespace rift_timer.Theme.Default
             {
                 // Show/hide finish indicator
                 if (isFinished) finishIndicator.Show();
-                else finishIndicator.Hide(); 
+                else finishIndicator.Hide();
             }
         }
 

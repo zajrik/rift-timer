@@ -49,6 +49,7 @@
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextItemToggleCollapse = new System.Windows.Forms.ToolStripMenuItem();
             this.contextItemSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.focusDrop = new System.Windows.Forms.Label();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -229,7 +230,7 @@
             this.contextItemToggleCollapse,
             this.contextItemSettings});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(196, 70);
+            this.contextMenu.Size = new System.Drawing.Size(196, 48);
             // 
             // contextItemToggleCollapse
             // 
@@ -245,12 +246,21 @@
             this.contextItemSettings.Text = "&Settings";
             this.contextItemSettings.Click += new System.EventHandler(this.MenuItem_Settings_Click);
             // 
+            // focusDrop
+            // 
+            this.focusDrop.AutoSize = true;
+            this.focusDrop.Location = new System.Drawing.Point(411, 12);
+            this.focusDrop.Name = "focusDrop";
+            this.focusDrop.Size = new System.Drawing.Size(0, 13);
+            this.focusDrop.TabIndex = 15;
+            // 
             // RiftTimer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(422, 282);
             this.ContextMenuStrip = this.contextMenu;
+            this.Controls.Add(this.focusDrop);
             this.Controls.Add(this.dialogPanel);
             this.Controls.Add(this.finishIndicator);
             this.Controls.Add(this.pauseIndicator);
@@ -306,6 +316,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem contextItemSettings;
         private System.Windows.Forms.ToolStripMenuItem contextItemToggleCollapse;
+        private System.Windows.Forms.Label focusDrop;
 
 
 

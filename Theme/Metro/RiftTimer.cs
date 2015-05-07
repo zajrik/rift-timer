@@ -205,12 +205,17 @@ namespace rift_timer.Theme.Metro
         }
 
         //// Button actions
+        /// TODO: move button enable/disable patterns into separate method
         // Start button
         private void Start_Click(object sender, EventArgs e)
         {
             if ((!isRunning && !isFinished) || isPaused)
             {
                 time.Start();
+                startButton.Enabled = false;
+                pauseButton.Enabled = true;
+                finishButton.Enabled = true;
+                resetButton.Enabled = true;
                 isRunning = true;
                 isFinished = false;
                 SetPauseState(false);
@@ -218,10 +223,15 @@ namespace rift_timer.Theme.Metro
             else if (isFinished)
             {
                 time.Restart();
+                startButton.Enabled = false;
+                pauseButton.Enabled = true;
+                finishButton.Enabled = true;
+                resetButton.Enabled = true;
                 isRunning = true;
                 isFinished = false;
                 SetPauseState(false);
             }
+            focusDrop.Focus();
         }
 
         // Finish button
@@ -230,6 +240,10 @@ namespace rift_timer.Theme.Metro
             if (isRunning)
             {
                 time.Stop();
+                startButton.Enabled = true;
+                pauseButton.Enabled = false;
+                finishButton.Enabled = false;
+                resetButton.Enabled = true;
                 isRunning = false;
                 SetPauseState(false);
                 isFinished = true;
@@ -248,6 +262,7 @@ namespace rift_timer.Theme.Metro
                 riftsList.Add(entryStr);
                 BindLogData();
             }
+            focusDrop.Focus();
         }
 
         // Pause button
@@ -259,6 +274,7 @@ namespace rift_timer.Theme.Metro
                 CheckTime();
                 SetPauseState(true);
             }
+            focusDrop.Focus();
         }
 
         // Reset button
@@ -266,10 +282,15 @@ namespace rift_timer.Theme.Metro
         {
             time.Stop();
             time.Reset();
+            startButton.Enabled = true;
+            pauseButton.Enabled = false;
+            finishButton.Enabled = false;
+            resetButton.Enabled = false;
             SetPauseState(false);
             isRunning = false;
             isFinished = false;
             CheckTime();
+            focusDrop.Focus();
         }
         //// End button actions
 
@@ -286,6 +307,8 @@ namespace rift_timer.Theme.Metro
             if (state)
             {
                 isPaused = true;
+                startButton.Enabled = true;
+                pauseButton.Enabled = false;
                 startButton.Text = "Resume";
             }
             else
@@ -325,7 +348,7 @@ namespace rift_timer.Theme.Metro
             {
                 // Show/hide finish indicator
                 if (isFinished) finishIndicator.Show();
-                else finishIndicator.Hide(); 
+                else finishIndicator.Hide();
             }
         }
 
