@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.acceptButton = new System.Windows.Forms.Button();
             this.themeChooser = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.notifier = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // acceptButton
@@ -62,6 +64,15 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Choose theme:";
             // 
+            // notifier
+            // 
+            this.notifier.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifier.BalloonTipText = "Connecting to update server...";
+            this.notifier.BalloonTipTitle = "Rift Timer";
+            this.notifier.Icon = ((System.Drawing.Icon)(resources.GetObject("notifier.Icon")));
+            this.notifier.Text = "Rift Timer";
+            this.notifier.Visible = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -85,5 +96,6 @@
         private System.Windows.Forms.Button acceptButton;
         private System.Windows.Forms.ComboBox themeChooser;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NotifyIcon notifier;
     }
 }
