@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -16,6 +17,21 @@ namespace rift_timer.Theme.Default
 {
     public partial class RiftTimer : Form
     {
+        // Add p/invoke global hotkey registry methods
+        [DllImport("user32.dll")]
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+        [DllImport("user32.dll")]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        private enum KeyModifier
+        {
+            None = 0,
+            Alt = 1,
+            Control = 2,
+            Shift = 4,
+            WinKey = 8
+        }
+
         public RiftTimer
             (
                 List<string> list = null, 
@@ -31,6 +47,13 @@ namespace rift_timer.Theme.Default
                 Directory.CreateDirectory("logs");
             }
 
+            // Register global hotkeys
+            int id = -1;
+            RegisterHotKey(this.Handle, ++id, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.S.GetHashCode());
+            RegisterHotKey(this.Handle, ++id, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.F.GetHashCode());
+            RegisterHotKey(this.Handle, ++id, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.E.GetHashCode());
+            RegisterHotKey(this.Handle, ++id, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.R.GetHashCode());
+
             // recycle rifts list if coming from a theme switch
             if (list != null) riftsList = list;
             if (entry > 0) entryNum = entry;
@@ -39,6 +62,35 @@ namespace rift_timer.Theme.Default
             isUpdateAvailable = updateNotify;
             if (latest != null) latestVersion = latest;
             else latestVersion = Application.ProductVersion;
+        }
+
+        // Handle global hotkey press
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == 0x0312)
+            {
+                Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
+                KeyModifier modifier = (KeyModifier)((int)m.LParam & 0xFFFF);
+                int id = m.WParam.ToInt32();
+
+                switch (key)
+                {
+                    case Keys.S:
+                        Start_Click(this, new EventArgs());
+                        break;
+                    case Keys.F:
+                        Finish_Click(this, new EventArgs());
+                        break;
+                    case Keys.E:
+                        Pause_Click(this, new EventArgs());
+                        break;
+                    case Keys.R:
+                        Reset_Click(this, new EventArgs());
+                        break;
+                }
+            }
         }
 
         //private DebugConsole debugConsole = new DebugConsole();
@@ -366,6 +418,11 @@ namespace rift_timer.Theme.Default
         // Execute on exit
         private void RiftTimer_FormClosed(object sender, FormClosedEventArgs e)
         {
+            // Unregister global hotkeys
+            for (int i = 0; i < 4; i++)
+                UnregisterHotKey(this.Handle, i);
+
+            // Close and don't open settings
             if (Properties.Settings.Default.settingsChosen)
             {
                 DialogResult = DialogResult.Cancel;
