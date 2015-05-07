@@ -94,5 +94,17 @@ namespace rift_timer.Properties {
                 this["userTheme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool userTopMost {
+            get {
+                return ((bool)(this["userTopMost"]));
+            }
+            set {
+                this["userTopMost"] = value;
+            }
+        }
     }
 }

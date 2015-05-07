@@ -22,6 +22,15 @@ namespace rift_timer
             themeChooser.DataSource = themes;
             themeChooser.SelectedIndex = Properties.Settings.Default.userTheme;
 
+            if (Properties.Settings.Default.userTopMost)
+            {
+                onTopCheckBox.CheckState = CheckState.Checked;
+            }
+            else
+            {
+                onTopCheckBox.CheckState = CheckState.Unchecked;
+            }
+
             // Show server connection message
             notifier.Icon = new Icon("res\\appicon.ico");
             notifier.Visible = true;
@@ -65,10 +74,18 @@ namespace rift_timer
         // Save settings and launch the chosen themed Rift Timer
         private void Accept_Click(object sender, EventArgs e)
         {
+            // Save selected options
             Properties.Settings.Default.settingsChosen = true;
+            Properties.Settings.Default.userTheme = themeChooser.SelectedIndex;
+
+            if (onTopCheckBox.CheckState == CheckState.Checked)
+                Properties.Settings.Default.userTopMost = true;
+            else
+                Properties.Settings.Default.userTopMost = false;
+
             Properties.Settings.Default.Save();
 
-            // Copy format for new themes, just change object
+            // TODO: Copy case format for new themes, just change object
             // names to match the classes and namespacing
             switch (themeChooser.SelectedIndex)
             {
@@ -87,7 +104,6 @@ namespace rift_timer
                     }
                     else if (riftTimer.DialogResult == DialogResult.Cancel)
                     {
-                        SaveSelection();
                         LogToFile(riftTimer.riftsList);
                         Close();
                     }
@@ -108,7 +124,6 @@ namespace rift_timer
                     }
                     else if (riftTimerMetro.DialogResult == DialogResult.Cancel)
                     {
-                        SaveSelection();
                         LogToFile(riftTimerMetro.riftsList);
                         Close();
                     }
@@ -116,13 +131,7 @@ namespace rift_timer
             }
         }
 
-        // Save selected options
-        private void SaveSelection()
-        {
-            Properties.Settings.Default.userTheme = themeChooser.SelectedIndex;
-            Properties.Settings.Default.Save();
-        }
-
+        // Check the update server for new versions
         private void UpdateCheck()
         {
             // get latest version info from server

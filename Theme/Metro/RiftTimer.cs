@@ -94,10 +94,14 @@ namespace rift_timer.Theme.Metro
         private int posX = Properties.Settings.Default.posX;
         private int posY = Properties.Settings.Default.posY;
 
+        private bool isTopMost = Properties.Settings.Default.userTopMost;
+
         private void RiftTimer_Load(object sender, EventArgs e)
         {
             Point startPos = new Point(posX, posY);
             this.Location = startPos;
+
+            this.TopMost = isTopMost;
 
             CheckTime();
 

@@ -34,11 +34,12 @@
             this.themeChooser = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.notifier = new System.Windows.Forms.NotifyIcon(this.components);
+            this.onTopCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // acceptButton
             // 
-            this.acceptButton.Location = new System.Drawing.Point(92, 52);
+            this.acceptButton.Location = new System.Drawing.Point(92, 80);
             this.acceptButton.Name = "acceptButton";
             this.acceptButton.Size = new System.Drawing.Size(75, 23);
             this.acceptButton.TabIndex = 3;
@@ -73,11 +74,22 @@
             this.notifier.Text = "Rift Timer";
             this.notifier.Visible = true;
             // 
+            // onTopCheckBox
+            // 
+            this.onTopCheckBox.AutoSize = true;
+            this.onTopCheckBox.Location = new System.Drawing.Point(15, 57);
+            this.onTopCheckBox.Name = "onTopCheckBox";
+            this.onTopCheckBox.Size = new System.Drawing.Size(90, 17);
+            this.onTopCheckBox.TabIndex = 5;
+            this.onTopCheckBox.Text = "Keep on top?";
+            this.onTopCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(179, 85);
+            this.ClientSize = new System.Drawing.Size(182, 110);
+            this.Controls.Add(this.onTopCheckBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.acceptButton);
             this.Controls.Add(this.themeChooser);
@@ -97,5 +109,6 @@
         private System.Windows.Forms.ComboBox themeChooser;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NotifyIcon notifier;
+        private System.Windows.Forms.CheckBox onTopCheckBox;
     }
 }
