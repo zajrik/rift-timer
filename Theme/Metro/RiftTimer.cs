@@ -118,7 +118,7 @@ namespace rift_timer.Theme.Metro
             difficultyDropDown.DataSource = difficultyList;
             difficultyDropDown.SelectedIndex = difficulty;
 
-            internalClock.Interval = 10;
+            internalClock.Interval = 50;
             internalClock.Start();
 
             //debugConsole.Show();
@@ -262,18 +262,18 @@ namespace rift_timer.Theme.Metro
                 difficultyDropDown.Enabled = true;
             }
 
-            // Flash pause indicator at 75 tick intervals
+            // Flash pause indicator at 15 tick intervals
             if (isPaused)
             {
-                if (tick <= 75)
+                if (tick <= 15)
                 {
                     pauseIndicator.Show();
                 }
-                else if (tick <= 150)
+                else if (tick <= 30)
                 {
                     pauseIndicator.Hide();
                 }
-                else if (tick > 150)
+                else if (tick > 30)
                 {
                     tick = 0;
                 }
