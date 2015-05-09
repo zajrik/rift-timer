@@ -47,6 +47,8 @@ namespace rift_timer.Theme.Metro
 
             if (!Directory.Exists("logs"))
                 Directory.CreateDirectory("logs");
+            if (!Directory.Exists("temp"))
+                Directory.CreateDirectory("temp");
 
             // Set window title, position/hide dialogPanel
             this.Text = "Rift Timer";

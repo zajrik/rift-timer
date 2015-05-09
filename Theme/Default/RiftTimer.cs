@@ -46,6 +46,8 @@ namespace rift_timer.Theme.Default
 
             if (!Directory.Exists("logs"))
                 Directory.CreateDirectory("logs");
+            if (!Directory.Exists("temp"))
+                Directory.CreateDirectory("temp");
 
             // Register global hotkeys
             int id = -1;
