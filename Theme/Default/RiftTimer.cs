@@ -440,14 +440,14 @@ namespace rift_timer.Theme.Default
         }
 
         // Save to session log file
-        public void MenuItem_SaveLog_Click(object sender, EventArgs e)
+        private void MenuItem_SaveLog_Click(object sender, EventArgs e)
         {
             if (isSessionLogged) File.Delete(logFileName);
             LogToFile(riftsList);
         }
 
         // Log rifts list to file
-        public void LogToFile(List<string> data)
+        private void LogToFile(List<string> data)
         {
             try
             {
