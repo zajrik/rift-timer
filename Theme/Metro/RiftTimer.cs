@@ -37,8 +37,10 @@ namespace rift_timer.Theme.Metro
             (
                 List<string> list = null, 
                 int entry = 0, 
-                bool updateNotify = false, 
-                string latest = null
+                bool updateNotify = false,
+                string latest = null,
+                bool isLogged = false,
+                string file = null
             )
         {
             InitializeComponent();
@@ -61,6 +63,8 @@ namespace rift_timer.Theme.Metro
             // recycle rifts list if coming from a theme switch
             if (list != null) riftsList = list;
             if (entry > 0) entryNum = entry;
+            isSessionLogged = isLogged;
+            if (file != null) logFileName = file;
 
             // Will display update notification when UpdateCheck is run
             isUpdateAvailable = updateNotify;
@@ -115,6 +119,9 @@ namespace rift_timer.Theme.Metro
         public List<string> riftsList = new List<string>();
         public int entryNum = 0;
         private string entryStr;
+
+        public bool isSessionLogged = false;
+        public string logFileName;
 
         private List<string> classesList = new List<string>
         {
@@ -437,6 +444,48 @@ namespace rift_timer.Theme.Metro
             if (this.Size.Height == 282) this.Size = new Size(422, 95);
             else this.Size = new Size(422, 282);
         }
+
+        // Open file import log
+        private void MenuItem_ImportLog_Click(object sender, EventArgs e)
+        {
+            logPicker.InitialDirectory = Environment.CurrentDirectory + @"\logs";
+            if (logPicker.ShowDialog() == DialogResult.OK)
+            {
+                isSessionLogged = true;
+                logFileName = logPicker.FileName;
+                riftsList = new List<string>(File.ReadAllLines(logPicker.FileName));
+                entryNum = riftsList.Count;
+                BindLogData();
+                //File.Delete(logPicker.FileName);
+            }
+        }
+
+        // Save to session log file
+        public void MenuItem_SaveLog_Click(object sender, EventArgs e)
+        {
+            if (isSessionLogged) File.Delete(logFileName);
+            LogToFile(riftsList);
+        }
+
+        // Log rifts list to file
+        public void LogToFile(List<string> data)
+        {
+            try
+            {
+                if (data.Count != 0)
+                {
+                    string timeStamp = DateTime.Now.ToString("MM.dd.yyyy_HH.mm.ss");
+                    logFileName = String.Format("logs\\log_{0}.txt", timeStamp);
+                    File.WriteAllLines(logFileName, data);
+                    logFileName = Environment.CurrentDirectory + "\\" + logFileName;
+                    isSessionLogged = true;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("There was an error creating a log file for this session. Press OK to exit");
+            }
+        }
         //// End context menu item handling
 
         // Save window location when window is moved
@@ -453,6 +502,9 @@ namespace rift_timer.Theme.Metro
             // Unregister global hotkeys
             for (int i = 0; i < 4; i++)
                 UnregisterHotKey(this.Handle, i);
+
+            // Save to session log file when switching themes or closing
+            MenuItem_SaveLog_Click(this, new EventArgs());
 
             // Close and don't open settings
             if (Properties.Settings.Default.settingsChosen)

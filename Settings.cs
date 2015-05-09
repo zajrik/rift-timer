@@ -71,6 +71,9 @@ namespace rift_timer
         private Boolean isUpdateAvailable = false;
         private string latestVersion = "";
 
+        private bool isSessionLogged = false;
+        private string logFileName = "";
+
         // Save settings and launch the chosen themed Rift Timer
         private void Accept_Click(object sender, EventArgs e)
         {
@@ -91,7 +94,15 @@ namespace rift_timer
             {
                 // Default theme
                 case 0:
-                    var riftTimer = new Theme.Default.RiftTimer(list, entry, isUpdateAvailable, latestVersion);
+                    var riftTimer = new Theme.Default.RiftTimer
+                        (
+                            list,
+                            entry,
+                            isUpdateAvailable,
+                            latestVersion,
+                            isSessionLogged,
+                            logFileName
+                        );
                     this.Hide();
                     riftTimer.ShowDialog();
                     if (riftTimer.DialogResult == DialogResult.OK)
@@ -101,17 +112,26 @@ namespace rift_timer
                         list = riftTimer.riftsList;
                         entry = riftTimer.entryNum;
                         isUpdateAvailable = false;
+                        isSessionLogged = riftTimer.isSessionLogged;
+                        logFileName = riftTimer.logFileName;
                     }
                     else if (riftTimer.DialogResult == DialogResult.Cancel)
                     {
-                        LogToFile(riftTimer.riftsList);
                         Close();
                     }
                     break;
                 
                 // Metro theme
                 case 1:
-                    var riftTimerMetro = new Theme.Metro.RiftTimer(list, entry, isUpdateAvailable, latestVersion);
+                    var riftTimerMetro = new Theme.Metro.RiftTimer
+                        (
+                            list,
+                            entry,
+                            isUpdateAvailable,
+                            latestVersion,
+                            isSessionLogged,
+                            logFileName
+                        );
                     this.Hide();
                     riftTimerMetro.ShowDialog();
                     if (riftTimerMetro.DialogResult == DialogResult.OK)
@@ -121,10 +141,11 @@ namespace rift_timer
                         list = riftTimerMetro.riftsList;
                         entry = riftTimerMetro.entryNum;
                         isUpdateAvailable = false;
+                        isSessionLogged = riftTimerMetro.isSessionLogged;
+                        logFileName = riftTimerMetro.logFileName;
                     }
                     else if (riftTimerMetro.DialogResult == DialogResult.Cancel)
                     {
-                        LogToFile(riftTimerMetro.riftsList);
                         Close();
                     }
                     break;
@@ -167,30 +188,9 @@ namespace rift_timer
             }
         }
 
-        // Log rifts list to file
-        private void LogToFile(List<string> data)
-        {
-            try
-            {
-                if (data.Count != 0)
-                {
-                    String timeStamp = DateTime.Now.ToString("MM.dd.yyyy_HH.mm.ss");
-                    File.WriteAllLines(String.Format("logs\\log_{0}.txt", timeStamp), data);
-                }
-            }
-            catch
-            {
-                MessageBox.Show("There was an error creating a log file for this session. Press OK to exit");
-            }
-        }
-
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Make sure to save logs if closing application by closing settings
-            if (!Properties.Settings.Default.settingsChosen)
-            {
-                LogToFile(list);
-            }
+            // Moved log saving back into RiftTimer
         }
     }
 }
