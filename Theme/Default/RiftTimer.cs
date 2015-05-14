@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace rift_timer.Theme.Default
@@ -100,15 +94,15 @@ namespace rift_timer.Theme.Default
         //private DebugConsole debugConsole = new DebugConsole();
 
         private WebClient clientUpdateCheck = new WebClient();
-        private Boolean isUpdateAvailable;
+        private bool isUpdateAvailable;
         private string latestVersion;
 
         private Stopwatch time = new Stopwatch();
         private int tick = 0;
 
-        private Boolean isRunning = false;
-        private Boolean isPaused = false;
-        private Boolean isFinished = false;
+        private bool isRunning = false;
+        private bool isPaused = false;
+        private bool isFinished = false;
 
         public List<string> riftsList = new List<string>();
         public int entryNum = 0;
@@ -382,7 +376,7 @@ namespace rift_timer.Theme.Default
         // Alternate log box list item bg colors
         private void logBox_DrawItem(object sender, DrawItemEventArgs e)
         {
-            Boolean isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+            bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
 
             if (e.Index > -1)
             {
@@ -437,7 +431,6 @@ namespace rift_timer.Theme.Default
                 riftsList = new List<string>(File.ReadAllLines(logPicker.FileName));
                 entryNum = riftsList.Count;
                 BindLogData();
-                //File.Delete(logPicker.FileName);
             }
         }
 
