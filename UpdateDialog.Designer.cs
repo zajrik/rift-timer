@@ -134,6 +134,7 @@
             this.MinimizeBox = false;
             this.Name = "UpdateDialog";
             this.Text = "Update notice";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
