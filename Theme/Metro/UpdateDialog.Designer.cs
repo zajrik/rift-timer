@@ -79,7 +79,7 @@
             this.metroButton1.TabIndex = 4;
             this.metroButton1.Text = "No";
             this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
+            this.metroButton1.Click += new System.EventHandler(this.NoButton_Click);
             // 
             // metroButton2
             // 
@@ -89,7 +89,7 @@
             this.metroButton2.TabIndex = 5;
             this.metroButton2.Text = "Yes";
             this.metroButton2.UseSelectable = true;
-            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
+            this.metroButton2.Click += new System.EventHandler(this.YesButton_Click);
             // 
             // versionsLabel
             // 

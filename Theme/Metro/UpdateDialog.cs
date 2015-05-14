@@ -27,21 +27,15 @@ namespace rift_timer.Theme.Metro
             latestVersionExplode = latestVersion.Split('.');
         }
 
-        private void metroButton2_Click(object sender, EventArgs e)
+        private void YesButton_Click(object sender, EventArgs e)
         {
-            string updateUrl = "http://zajriksrv.us.to/rift-timer/rifttimer-{0}-{1}-{2}.zip";
-            updateUrl = String.Format
-                (
-                    updateUrl,
-                    latestVersionExplode[0],
-                    latestVersionExplode[1],
-                    latestVersionExplode[2]
-                );
-            Process.Start(updateUrl);
+            string updater = Environment.CurrentDirectory + @"\RiftTimerUpdater.exe";
+            Process.Start(updater, "pause");
             this.Hide();
+            Application.Exit();
         }
 
-        private void metroButton1_Click(object sender, EventArgs e)
+        private void NoButton_Click(object sender, EventArgs e)
         {
             this.Hide();
         }
