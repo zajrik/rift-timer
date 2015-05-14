@@ -98,7 +98,6 @@
             this.MaximizeBox = false;
             this.Name = "Settings";
             this.Text = "Settings";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.Shown += new System.EventHandler(this.Settings_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

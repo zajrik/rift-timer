@@ -19,6 +19,8 @@ namespace rift_timer
         {
             InitializeComponent();
 
+            LoadConfig();
+
             themeChooser.DataSource = themes;
             themeChooser.SelectedIndex = Properties.Settings.Default.userTheme;
 
@@ -47,6 +49,48 @@ namespace rift_timer
             }
         }
 
+        // Load from and save config to file, allows keeping settings between updates
+        private void LoadConfig()
+        {
+            if (!File.Exists(Environment.CurrentDirectory + @"\temp\RiftTimer.config"))
+            {
+                File.Create(@"temp\RiftTimer.config");
+            }
+            else
+            {
+                configBuffer = File.ReadAllLines(@"temp\RiftTimer.config");
+                foreach (string line in configBuffer)
+                {
+                    configLineBuffer = line.Split(':');
+                    config.Add(configLineBuffer[0], configLineBuffer[1]);
+                }
+
+                Properties.Settings.Default.playerClass    = Int32.Parse(config["playerClass"]);
+                Properties.Settings.Default.difficulty     = Int32.Parse(config["difficulty"]);
+                Properties.Settings.Default.posX           = Int32.Parse(config["posX"]);
+                Properties.Settings.Default.posY           = Int32.Parse(config["posY"]);
+                Properties.Settings.Default.settingsChosen = Boolean.Parse(config["settingsChosen"]);
+                Properties.Settings.Default.userTheme      = Int32.Parse(config["userTheme"]);
+                Properties.Settings.Default.userTopMost    = Boolean.Parse(config["userTopMost"]);
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void SaveConfig()
+        {
+            configBuffer = new string[]
+            {
+                "playerClass:"    + Properties.Settings.Default.playerClass.ToString(),
+                "difficulty:"     + Properties.Settings.Default.difficulty.ToString(),
+                "posX:"           + Properties.Settings.Default.posX.ToString(),
+                "posY:"           + Properties.Settings.Default.posY.ToString(),
+                "settingsChosen:" + Properties.Settings.Default.settingsChosen.ToString(),
+                "userTheme:"      + Properties.Settings.Default.userTheme.ToString(),
+                "userTopMost:"    + Properties.Settings.Default.userTopMost.ToString()
+            };
+            File.WriteAllLines(@"temp\RiftTimer.config", configBuffer);
+        }
+
         private void Settings_Shown(object sender, EventArgs e)
         {
             // Center within default location of Rift Timer window
@@ -57,6 +101,10 @@ namespace rift_timer
             this.Location = new Point(locX, locY);
         }
 
+        private Dictionary<string, string> config = new Dictionary<string, string>();
+        private string[] configBuffer;
+        private string[] configLineBuffer;
+
         private List<string> themes = new List<string>
         {
             "Default",
@@ -65,10 +113,10 @@ namespace rift_timer
         private List<string> list = new List<string>();
         private int entry;
 
-        private static String versionInfo = Application.ProductVersion;
+        private static string versionInfo = Application.ProductVersion;
         private WebClient clientUpdateCheck = new WebClient();
-        private Boolean isCheckSuccessful = false;
-        private Boolean isUpdateAvailable = false;
+        private bool isCheckSuccessful = false;
+        private bool isUpdateAvailable = false;
         private string latestVersion = "";
 
         private bool isSessionLogged = false;
@@ -117,6 +165,7 @@ namespace rift_timer
                     }
                     else if (riftTimer.DialogResult == DialogResult.Cancel)
                     {
+                        SaveConfig();
                         Close();
                     }
                     break;
@@ -146,6 +195,7 @@ namespace rift_timer
                     }
                     else if (riftTimerMetro.DialogResult == DialogResult.Cancel)
                     {
+                        SaveConfig();
                         Close();
                     }
                     break;
@@ -186,11 +236,6 @@ namespace rift_timer
                     }
                 } 
             }
-        }
-
-        private void Settings_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // Moved log saving back into RiftTimer
         }
     }
 }
