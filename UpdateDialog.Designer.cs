@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.yesButton = new System.Windows.Forms.Button();
             this.noButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -36,19 +35,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.installedLabel = new System.Windows.Forms.Label();
             this.latestLabel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // textBox1
-            // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(174, 29);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "An update is available. Do you want to download the latest version?";
             // 
             // yesButton
             // 
@@ -115,12 +103,20 @@
             this.latestLabel.TabIndex = 7;
             this.latestLabel.Text = "0.0.0";
             // 
+            // label4
+            // 
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(180, 35);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "An update is available. Do you want to download the latest version?";
+            // 
             // UpdateDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(193, 136);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.latestLabel);
             this.Controls.Add(this.installedLabel);
             this.Controls.Add(this.label3);
@@ -128,7 +124,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.noButton);
             this.Controls.Add(this.yesButton);
-            this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -142,7 +137,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button yesButton;
         private System.Windows.Forms.Button noButton;
         private System.Windows.Forms.Label label1;
@@ -150,6 +144,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label installedLabel;
         private System.Windows.Forms.Label latestLabel;
+        private System.Windows.Forms.Label label4;
 
     }
 }
