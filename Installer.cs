@@ -52,8 +52,28 @@ namespace RiftTimerInstaller
                     // Create desktop shortcut
                     if (createShortcutCheckbox.Checked)
                     {
-                        string shortcutLocation = System.IO.Path.Combine
+                        string shortcutLocation = Path.Combine
                             (Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Rift Timer" + ".lnk");
+                        WshShell shell = new WshShell();
+                        IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+                        shortcut.Description = "Time those rifts!";
+                        shortcut.IconLocation = installDirectory + @"\res\appicon.ico";
+                        shortcut.TargetPath = installDirectory + @"\rift-timer.exe";
+                        shortcut.WorkingDirectory = installDirectory;
+                        shortcut.Save();
+                    }
+
+                    // Create start menu shortcut
+                    if (createStartShortcutCheckbox.Checked)
+                    {
+                        string startMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
+                        string startMenuItem = Path.Combine(startMenuPath, "Programs", "Rift Timer");
+
+                        if (!Directory.Exists(startMenuItem))
+                            Directory.CreateDirectory(startMenuItem);
+
+                        string shortcutLocation = Path.Combine(startMenuItem, "Rift Timer" + ".lnk");
                         WshShell shell = new WshShell();
                         IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
 

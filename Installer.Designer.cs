@@ -35,6 +35,7 @@
             this.chooseFolderButton = new System.Windows.Forms.Button();
             this.installButton = new System.Windows.Forms.Button();
             this.createShortcutCheckbox = new System.Windows.Forms.CheckBox();
+            this.createStartShortcutCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // installDirectoryBox
@@ -86,11 +87,24 @@
             this.createShortcutCheckbox.Text = "Create desktop shortcut?";
             this.createShortcutCheckbox.UseVisualStyleBackColor = true;
             // 
+            // createStartShortcutCheckbox
+            // 
+            this.createStartShortcutCheckbox.AutoSize = true;
+            this.createStartShortcutCheckbox.Checked = true;
+            this.createStartShortcutCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.createStartShortcutCheckbox.Location = new System.Drawing.Point(163, 51);
+            this.createStartShortcutCheckbox.Name = "createStartShortcutCheckbox";
+            this.createStartShortcutCheckbox.Size = new System.Drawing.Size(156, 17);
+            this.createStartShortcutCheckbox.TabIndex = 5;
+            this.createStartShortcutCheckbox.Text = "Create start menu shortcut?";
+            this.createStartShortcutCheckbox.UseVisualStyleBackColor = true;
+            // 
             // Installer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(463, 75);
+            this.Controls.Add(this.createStartShortcutCheckbox);
             this.Controls.Add(this.createShortcutCheckbox);
             this.Controls.Add(this.installButton);
             this.Controls.Add(this.chooseFolderButton);
@@ -113,6 +127,7 @@
         private System.Windows.Forms.Button chooseFolderButton;
         private System.Windows.Forms.Button installButton;
         private System.Windows.Forms.CheckBox createShortcutCheckbox;
+        private System.Windows.Forms.CheckBox createStartShortcutCheckbox;
     }
 }
 
