@@ -481,6 +481,12 @@ namespace rift_timer.Theme.Metro
                 MessageBox.Show("There was an error creating a log file for this session. Press OK to exit");
             }
         }
+
+        // Open the logs folder
+        private void MenuItem_OpenLogsFolder_Click(object sender, EventArgs e)
+        {
+            Process.Start(Environment.CurrentDirectory + @"\logs");
+        }
         //// End context menu item handling
 
         // Save window location when window is moved

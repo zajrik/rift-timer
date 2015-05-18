@@ -48,11 +48,12 @@
             this.dialogPanel = new System.Windows.Forms.Panel();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuItemToggleCollapse = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuItemImportLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuItemSaveLog = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.focusDrop = new System.Windows.Forms.Label();
             this.logPicker = new System.Windows.Forms.OpenFileDialog();
-            this.contextMenuItemImportLog = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemSaveLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuItemOpenLogsFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -233,9 +234,10 @@
             this.contextMenuItemToggleCollapse,
             this.contextMenuItemImportLog,
             this.contextMenuItemSaveLog,
+            this.contextMenuItemOpenLogsFolder,
             this.contextMenuItemSettings});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(196, 114);
+            this.contextMenu.Size = new System.Drawing.Size(196, 136);
             // 
             // contextMenuItemToggleCollapse
             // 
@@ -243,6 +245,20 @@
             this.contextMenuItemToggleCollapse.Size = new System.Drawing.Size(195, 22);
             this.contextMenuItemToggleCollapse.Text = "Toggle &compact mode";
             this.contextMenuItemToggleCollapse.Click += new System.EventHandler(this.MenuItem_ToggleCollapse_Click);
+            // 
+            // contextMenuItemImportLog
+            // 
+            this.contextMenuItemImportLog.Name = "contextMenuItemImportLog";
+            this.contextMenuItemImportLog.Size = new System.Drawing.Size(195, 22);
+            this.contextMenuItemImportLog.Text = "&Import log file";
+            this.contextMenuItemImportLog.Click += new System.EventHandler(this.MenuItem_ImportLog_Click);
+            // 
+            // contextMenuItemSaveLog
+            // 
+            this.contextMenuItemSaveLog.Name = "contextMenuItemSaveLog";
+            this.contextMenuItemSaveLog.Size = new System.Drawing.Size(195, 22);
+            this.contextMenuItemSaveLog.Text = "Save to &log file";
+            this.contextMenuItemSaveLog.Click += new System.EventHandler(this.MenuItem_SaveLog_Click);
             // 
             // contextMenuItemSettings
             // 
@@ -259,19 +275,12 @@
             this.focusDrop.Size = new System.Drawing.Size(0, 13);
             this.focusDrop.TabIndex = 15;
             // 
-            // contextMenuItemImportLog
+            // contextMenuItemOpenLogsFolder
             // 
-            this.contextMenuItemImportLog.Name = "contextMenuItemImportLog";
-            this.contextMenuItemImportLog.Size = new System.Drawing.Size(195, 22);
-            this.contextMenuItemImportLog.Text = "&Import log file";
-            this.contextMenuItemImportLog.Click += new System.EventHandler(this.MenuItem_ImportLog_Click);
-            // 
-            // contextMenuItemSaveLog
-            // 
-            this.contextMenuItemSaveLog.Name = "contextMenuItemSaveLog";
-            this.contextMenuItemSaveLog.Size = new System.Drawing.Size(195, 22);
-            this.contextMenuItemSaveLog.Text = "Save to &log file";
-            this.contextMenuItemSaveLog.Click += new System.EventHandler(this.MenuItem_SaveLog_Click);
+            this.contextMenuItemOpenLogsFolder.Name = "contextMenuItemOpenLogsFolder";
+            this.contextMenuItemOpenLogsFolder.Size = new System.Drawing.Size(195, 22);
+            this.contextMenuItemOpenLogsFolder.Text = "&Open logs folder";
+            this.contextMenuItemOpenLogsFolder.Click += new System.EventHandler(this.MenuItem_OpenLogsFolder_Click);
             // 
             // RiftTimer
             // 
@@ -339,6 +348,7 @@
         private System.Windows.Forms.OpenFileDialog logPicker;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemImportLog;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemSaveLog;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuItemOpenLogsFolder;
 
 
 
