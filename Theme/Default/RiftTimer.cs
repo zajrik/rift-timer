@@ -201,10 +201,12 @@ namespace rift_timer.Theme.Default
             if ((!isRunning && !isFinished) || isPaused)
             {
                 time.Start();
+
                 startButton.Enabled = false;
                 pauseButton.Enabled = true;
                 finishButton.Enabled = true;
                 resetButton.Enabled = true;
+
                 isRunning = true;
                 isFinished = false;
                 SetPauseState(false);
@@ -212,10 +214,12 @@ namespace rift_timer.Theme.Default
             else if (isFinished)
             {
                 time.Restart();
+
                 startButton.Enabled = false;
                 pauseButton.Enabled = true;
                 finishButton.Enabled = true;
                 resetButton.Enabled = true;
+
                 isRunning = true;
                 isFinished = false;
                 SetPauseState(false);
@@ -228,10 +232,12 @@ namespace rift_timer.Theme.Default
             if (isRunning)
             {
                 time.Stop();
+
                 startButton.Enabled = true;
                 pauseButton.Enabled = false;
                 finishButton.Enabled = false;
                 resetButton.Enabled = true;
+
                 isRunning = false;
                 SetPauseState(false);
                 isFinished = true;
@@ -268,10 +274,12 @@ namespace rift_timer.Theme.Default
         {
             time.Stop();
             time.Reset();
+
             startButton.Enabled = true;
             pauseButton.Enabled = false;
             finishButton.Enabled = false;
             resetButton.Enabled = false;
+
             SetPauseState(false);
             isRunning = false;
             isFinished = false;
@@ -292,8 +300,10 @@ namespace rift_timer.Theme.Default
             if (state)
             {
                 isPaused = true;
+
                 startButton.Enabled = true;
                 pauseButton.Enabled = false;
+
                 startButton.Text = "Resume";
             }
             else
