@@ -39,11 +39,6 @@ namespace rift_timer.Theme.Metro
         {
             InitializeComponent();
 
-            if (!Directory.Exists("logs"))
-                Directory.CreateDirectory("logs");
-            if (!Directory.Exists("temp"))
-                Directory.CreateDirectory("temp");
-
             // Set window title, position/hide dialogPanel
             this.Text = "Rift Timer";
             dialogPanel.Location = new Point(1, 73);
@@ -139,7 +134,11 @@ namespace rift_timer.Theme.Metro
             "Torment III",
             "Torment IV",
             "Torment V",
-            "Torment VI"
+            "Torment VI",
+            "Torment VII",
+            "Torment VIII",
+            "Torment IX",
+            "Torment X"
         };
 
         private int playerClass = Properties.Settings.Default.playerClass;

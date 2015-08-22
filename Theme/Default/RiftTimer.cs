@@ -38,11 +38,6 @@ namespace rift_timer.Theme.Default
         {
             InitializeComponent();
 
-            if (!Directory.Exists("logs"))
-                Directory.CreateDirectory("logs");
-            if (!Directory.Exists("temp"))
-                Directory.CreateDirectory("temp");
-
             // Register global hotkeys
             int id = -1;
             RegisterHotKey(this.Handle, ++id, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.S.GetHashCode());
@@ -131,7 +126,11 @@ namespace rift_timer.Theme.Default
             "Torment III",
             "Torment IV",
             "Torment V",
-            "Torment VI"
+            "Torment VI",
+            "Torment VII",
+            "Torment VIII",
+            "Torment IX",
+            "Torment X"
         };
 
         private int playerClass = Properties.Settings.Default.playerClass;

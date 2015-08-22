@@ -14,6 +14,11 @@ namespace rift_timer
         {
             InitializeComponent();
 
+            if (!Directory.Exists("logs"))
+                Directory.CreateDirectory("logs");
+            if (!Directory.Exists("temp"))
+                Directory.CreateDirectory("temp");
+
             LoadConfig();
 
             themeChooser.DataSource = themes;
