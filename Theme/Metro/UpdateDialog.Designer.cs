@@ -67,9 +67,9 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label2.Location = new System.Drawing.Point(45, 46);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(284, 17);
+            this.label2.Size = new System.Drawing.Size(89, 17);
             this.label2.TabIndex = 3;
-            this.label2.Text = "latest version? This will open a browser window.";
+            this.label2.Text = "latest version?";
             // 
             // metroButton1
             // 
