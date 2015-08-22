@@ -14,24 +14,21 @@ namespace rift_timer
         {
             InitializeComponent();
 
-            if (!Directory.Exists("logs"))
-                Directory.CreateDirectory("logs");
-            if (!Directory.Exists("temp"))
-                Directory.CreateDirectory("temp");
+            // Create necessary directories if they don't already exist
+            if (!Directory.Exists("logs")) Directory.CreateDirectory("logs");
+            if (!Directory.Exists("temp")) Directory.CreateDirectory("temp");
 
             LoadConfig();
 
+            // Load state for chosen theme dropdown
             themeChooser.DataSource = themes;
             themeChooser.SelectedIndex = Properties.Settings.Default.userTheme;
 
+            // Load checkbox state for userTopMost pref
             if (Properties.Settings.Default.userTopMost)
-            {
                 onTopCheckBox.CheckState = CheckState.Checked;
-            }
             else
-            {
                 onTopCheckBox.CheckState = CheckState.Unchecked;
-            }
 
             // Show server connection message
             notifier.Icon = new Icon("res\\appicon.ico");
@@ -43,10 +40,9 @@ namespace rift_timer
             // Hide after UpdateCheck finishes, or 10 secs by default
             notifier.Visible = false;
 
+            // Dismiss the settings window unless the user has oppened it manually
             if (Properties.Settings.Default.settingsChosen)
-            {
                 Accept_Click(this, new EventArgs());
-            }
         }
 
         // Load from and save config to file, allows keeping settings between updates
