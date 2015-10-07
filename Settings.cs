@@ -20,7 +20,7 @@ namespace rift_timer
 
             LoadConfig();
 
-            // Load state for chosen theme dropdown
+            // Load dropdown state for userTheme pref
             themeChooser.DataSource = themes;
             themeChooser.SelectedIndex = Properties.Settings.Default.userTheme;
 
