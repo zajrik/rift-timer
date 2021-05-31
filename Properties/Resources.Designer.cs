@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace rift_timer.Properties {
+namespace RiftTimer.Properties {
     using System;
     
     

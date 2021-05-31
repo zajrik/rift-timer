@@ -7,7 +7,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace rift_timer.Theme.Default
+namespace RiftTimer.Theme.Default
 {
     public partial class RiftTimer : Form
     {
@@ -26,35 +26,29 @@ namespace rift_timer.Theme.Default
             WinKey = 8
         }
 
-        public RiftTimer
-            (
-                List<string> list = null, 
-                int entry = 0, 
-                bool updateNotify = false, 
-                string latest = null,
-                bool isLogged = false,
-                string file = null
-            )
+        public RiftTimer(
+            List<string> riftsList = null, 
+            bool isSessionLogged = false,
+            string logFileName = null
+        )
         {
             InitializeComponent();
 
             // Register global hotkeys
-            int id = -1;
-            RegisterHotKey(this.Handle, ++id, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.S.GetHashCode());
-            RegisterHotKey(this.Handle, ++id, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.F.GetHashCode());
-            RegisterHotKey(this.Handle, ++id, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.E.GetHashCode());
-            RegisterHotKey(this.Handle, ++id, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.R.GetHashCode());
+            int id = 0;
+            RegisterHotKey(this.Handle, id++, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.S.GetHashCode());
+            RegisterHotKey(this.Handle, id++, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.F.GetHashCode());
+            RegisterHotKey(this.Handle, id++, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.E.GetHashCode());
+            RegisterHotKey(this.Handle, id++, (int)KeyModifier.Shift | (int)KeyModifier.Control, Keys.R.GetHashCode());
 
-            // recycle rifts list if coming from a theme switch
-            if (list != null) riftsList = list;
-            if (entry > 0) entryNum = entry;
-            isSessionLogged = isLogged;
-            if (file != null) logFileName = file;
+            // recycle rifts list if coming back from settings
+            if (riftsList != null)
+				this.riftsList = riftsList;
+            
+			this.isSessionLogged = isSessionLogged;
 
-            // Will display update notification when UpdateCheck is run
-            isUpdateAvailable = updateNotify;
-            if (latest != null) latestVersion = latest;
-            else latestVersion = Application.ProductVersion;
+            if (logFileName != null)
+				this.logFileName = logFileName;
         }
 
         // Handle global hotkey press
@@ -65,8 +59,8 @@ namespace rift_timer.Theme.Default
             if (m.Msg == 0x0312)
             {
                 Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
-                KeyModifier modifier = (KeyModifier)((int)m.LParam & 0xFFFF);
-                int id = m.WParam.ToInt32();
+                //KeyModifier modifier = (KeyModifier)((int)m.LParam & 0xFFFF);
+                //int id = m.WParam.ToInt32();
 
                 switch (key)
                 {
@@ -88,11 +82,7 @@ namespace rift_timer.Theme.Default
 
         //private DebugConsole debugConsole = new DebugConsole();
 
-        private WebClient clientUpdateCheck = new WebClient();
-        private bool isUpdateAvailable;
-        private string latestVersion;
-
-        private Stopwatch time = new Stopwatch();
+        private readonly Stopwatch time = new Stopwatch();
         private int tick = 0;
 
         private bool isRunning = false;
@@ -100,22 +90,22 @@ namespace rift_timer.Theme.Default
         private bool isFinished = false;
 
         public List<string> riftsList = new List<string>();
-        public int entryNum = 0;
-        private string entryStr;
 
         public bool isSessionLogged = false;
         public string logFileName;
 
-        private List<string> classesList = new List<string>
+        private readonly List<string> classesList = new List<string>
         {
             "Barbarian",
             "Crusader",
             "Demon Hunter",
             "Monk",
+			"Necromancer",
             "Witch Doctor",
             "Wizard"
         };
-        private List<string> difficultyList = new List<string>
+
+        private readonly List<string> difficultyList = new List<string>
         {
             "Normal",
             "Hard",
@@ -130,7 +120,13 @@ namespace rift_timer.Theme.Default
             "Torment VII",
             "Torment VIII",
             "Torment IX",
-            "Torment X"
+            "Torment X",
+            "Torment XI",
+            "Torment XII",
+            "Torment XIII",
+            "Torment XIV",
+            "Torment XV",
+			"Torment XVI",
         };
 
         private int playerClass = Properties.Settings.Default.playerClass;
@@ -140,6 +136,8 @@ namespace rift_timer.Theme.Default
         private int posY = Properties.Settings.Default.posY;
 
         private bool isTopMost = Properties.Settings.Default.userTopMost;
+
+		private bool isCollapsed = false;
 
         private void RiftTimer_Load(object sender, EventArgs e)
         {
@@ -171,29 +169,14 @@ namespace rift_timer.Theme.Default
             internalClock.Start();
 
             //debugConsole.Show();
-        }
+		}
 
         private void RiftTimer_Shown(object sender, EventArgs e)
         {
-            UpdateCheck();
             logBox.ClearSelected();
         }
 
-        // Display notification if update is available
-        private void UpdateCheck()
-        {
-            if (isUpdateAvailable)
-            {
-                UpdateDialog updateDialog = new UpdateDialog(latestVersion);
-                updateDialog.StartPosition = FormStartPosition.CenterParent;
-                updateDialog.ShowDialog();
-
-                updateDialog.Dispose();
-            }
-        }
-
         //// Button actions
-        /// TODO: move button enable/disable patterns into separate method
         // Start button
         private void Start_Click(object sender, EventArgs e)
         {
@@ -243,15 +226,14 @@ namespace rift_timer.Theme.Default
                 CheckTime();
 
                 // Add new log to rifts list
-                entryNum++;
-                entryStr = String.Format
-                    (
-                        "{0}{1,-5}{2,-3}{3,-10}{4,-3}{5,-14}{6,-3}{7}",
-                        "Rift #", entryNum.ToString("D3"), "|",
-                        time.Elapsed.ToString("mm\\:ss\\:ff"), "|",
-                        classesList[classesDropDown.SelectedIndex], "|",
-                        difficultyList[difficultyDropDown.SelectedIndex]
-                    );
+                string entryStr = String.Format(
+                    "{0}{1,-5}{2,-3}{3,-10}{4,-3}{5,-14}{6,-3}{7}",
+                    "Rift #", (riftsList.Count + 1).ToString("D3"), "|",
+                    time.Elapsed.ToString("mm\\:ss\\:ff"), "|",
+                    classesList[classesDropDown.SelectedIndex], "|",
+                    difficultyList[difficultyDropDown.SelectedIndex]
+                );
+
                 riftsList.Add(entryStr);
                 BindLogData();
             }
@@ -294,7 +276,7 @@ namespace rift_timer.Theme.Default
 
         // Set pause state, clear pause indicator if unpausing,
         // and change start button text
-        private void SetPauseState(Boolean state)
+        private void SetPauseState(bool state)
         {
             if (state)
             {
@@ -358,11 +340,10 @@ namespace rift_timer.Theme.Default
         // Bind selection data when either of the class/difficulty dropdowns are changed
         private void DropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindSelectionData
-                (
-                    classesDropDown.SelectedIndex,
-                    difficultyDropDown.SelectedIndex
-                );
+            BindSelectionData(
+                classesDropDown.SelectedIndex,
+                difficultyDropDown.SelectedIndex
+            );
         }
 
         //// Log box code
@@ -385,30 +366,32 @@ namespace rift_timer.Theme.Default
         // Alternate log box list item bg colors
         private void logBox_DrawItem(object sender, DrawItemEventArgs e)
         {
-            bool isSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+            bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 
             if (e.Index > -1)
             {
-                Color color = isSelected ?
-                    SystemColors.Highlight : e.Index % 2 != 0 ?
-                    Color.SkyBlue : Color.White;
+                Color color = isSelected
+					? SystemColors.Highlight
+					: e.Index % 2 != 0
+						? Color.SkyBlue
+						: Color.White;
 
                 SolidBrush bgBrush = new SolidBrush(color);
                 SolidBrush txtBrush = new SolidBrush(e.ForeColor);
 
                 e.Graphics.FillRectangle(bgBrush, e.Bounds);
-                e.Graphics.DrawString
-                    (
-                        logBox.GetItemText(logBox.Items[e.Index]),
-                        e.Font,
-                        txtBrush,
-                        e.Bounds,
-                        StringFormat.GenericDefault
-                    );
+                e.Graphics.DrawString(
+                    logBox.GetItemText(logBox.Items[e.Index]),
+                    e.Font,
+                    txtBrush,
+                    e.Bounds,
+                    StringFormat.GenericDefault
+                );
 
                 bgBrush.Dispose();
                 txtBrush.Dispose();
             }
+
             e.DrawFocusRectangle();
         }
         //// End log box code
@@ -425,8 +408,16 @@ namespace rift_timer.Theme.Default
         // Toggle panel height collapse mode via context menu item
         private void MenuItem_ToggleCollapse_Click(object sender, EventArgs e)
         {
-            if (this.Size.Height == 282) this.Size = new Size(422, 106);
-            else this.Size = new Size(422, 282);
+			if (!isCollapsed)
+			{
+				isCollapsed = true;
+				this.Size = new Size(490, 117);
+			}
+			else
+			{
+				isCollapsed = false;
+				this.Size = new Size(490, 321);
+			}
         }
 
         // Open file import log
@@ -438,7 +429,6 @@ namespace rift_timer.Theme.Default
                 isSessionLogged = true;
                 logFileName = logPicker.FileName;
                 riftsList = new List<string>(File.ReadAllLines(logPicker.FileName));
-                entryNum = riftsList.Count;
                 BindLogData();
             }
         }
@@ -446,7 +436,9 @@ namespace rift_timer.Theme.Default
         // Save to session log file
         private void MenuItem_SaveLog_Click(object sender, EventArgs e)
         {
-            if (isSessionLogged) File.Delete(logFileName);
+            if (isSessionLogged)
+				File.Delete(logFileName);
+
             LogToFile(riftsList);
         }
 

@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace rift_timer
+namespace RiftTimer
 {
     class DebugConsole
     {

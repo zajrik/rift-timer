@@ -1,4 +1,4 @@
-﻿namespace rift_timer.Theme.Default
+﻿namespace RiftTimer.Theme.Default
 {
     partial class RiftTimer
     {

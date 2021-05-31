@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace rift_timer
+namespace RiftTimer
 {
     static class Program
     {
@@ -19,8 +19,8 @@ namespace rift_timer
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
-            }
+                // MessageBox.Show(ex.ToString());
+			}
         }
     }
 }
