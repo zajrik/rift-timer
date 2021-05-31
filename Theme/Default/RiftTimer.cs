@@ -126,7 +126,31 @@ namespace RiftTimer.Theme.Default
             "Torment XIII",
             "Torment XIV",
             "Torment XV",
-			"Torment XVI",
+	    "Torment XVI",
+	    "GR 5", 		//Added a bunch of Greater Rift levels so it will keep track of grift times. 
+	    "GR 10",		//Because D3 only shows best time, being able to look back at old grift times can be helpful.
+	    "GR 15",
+	    "GR 20",
+	    "GR 25",
+	    "GR 30",
+	    "GR 35",
+	    "GR 40",
+	    "GR 45",
+	    "GR 50",
+	    "GR 55",
+	    "GR 60",
+	    "GR 65",
+	    "GR 70",
+	    "GR 75",
+	    "GR 80",
+	    "GR 85",
+	    "GR 90",
+	    "GR 95",
+	    "GR 100",
+	    "GR 105",
+	    "GR 110",
+	    "GR 115",
+			"GR 120",
         };
 
         private int playerClass = Properties.Settings.Default.playerClass;
