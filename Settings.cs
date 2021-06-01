@@ -20,9 +20,9 @@ namespace RiftTimer
             LoadConfig();
 
             // Load checkbox state for userTopMost pref
-			onTopCheckBox.CheckState = Properties.Settings.Default.userTopMost
-				? CheckState.Checked
-				: CheckState.Unchecked;
+            onTopCheckBox.CheckState = Properties.Settings.Default.userTopMost
+                ? CheckState.Checked
+                : CheckState.Unchecked;
 
             // Dismiss the settings window unless the user has oppened it manually
             if (Properties.Settings.Default.settingsChosen)
@@ -39,7 +39,7 @@ namespace RiftTimer
             else
             {
                 string[] configBuffer = File.ReadAllLines(@"temp\RiftTimer.config");
-				string[] configLineBuffer;
+                string[] configLineBuffer;
 
                 foreach (string line in configBuffer)
                 {
@@ -62,26 +62,26 @@ namespace RiftTimer
         private void SaveConfig()
         {
             string[] configBuffer = new string[]
-			{
-				$"playerClass:{Properties.Settings.Default.playerClass}",
-				$"difficulty:{Properties.Settings.Default.difficulty}",
-				$"posX:{Properties.Settings.Default.posX}",
+            {
+                $"playerClass:{Properties.Settings.Default.playerClass}",
+                $"difficulty:{Properties.Settings.Default.difficulty}",
+                $"posX:{Properties.Settings.Default.posX}",
                 $"posY:{Properties.Settings.Default.posY}",
                 $"settingsChosen:{Properties.Settings.Default.settingsChosen}",
                 $"userTopMost:{Properties.Settings.Default.userTopMost}",
                 $"isNormalRifts:{Properties.Settings.Default.isNormalRifts}"
-			};
+            };
 
             File.WriteAllLines(@"temp\RiftTimer.config", configBuffer);
         }
 
-		// Center within default location of Rift Timer window
+        // Center within default location of Rift Timer window
         private void Settings_Shown(object sender, EventArgs e)
         {
             int posX = Properties.Settings.Default.posX;
             int posY = Properties.Settings.Default.posY;
 
-			// (490, 321) is the base Size of the Rift Timer window
+            // (490, 321) is the base Size of the Rift Timer window
             int locX = (posX + ((490 - this.Width) / 2));
             int locY = (posY + ((321 - this.Height) / 2));
 
@@ -99,34 +99,34 @@ namespace RiftTimer
         private void Accept_Click(object sender, EventArgs e)
         {
             // Save selected options
-			Properties.Settings.Default.userTopMost = onTopCheckBox.CheckState == CheckState.Checked;
+            Properties.Settings.Default.userTopMost = onTopCheckBox.CheckState == CheckState.Checked;
             Properties.Settings.Default.settingsChosen = true;
             Properties.Settings.Default.Save();
 
-			Theme.Default.RiftTimer riftTimer = new Theme.Default.RiftTimer(
-				timesList,
-				isSessionLogged,
-				logFileName
-			);
+            Theme.Default.RiftTimer riftTimer = new Theme.Default.RiftTimer(
+                timesList,
+                isSessionLogged,
+                logFileName
+            );
 
-			this.Hide();
+            this.Hide();
 
-			riftTimer.ShowDialog();
+            riftTimer.ShowDialog();
 
-			if (riftTimer.DialogResult == DialogResult.OK)
-			{
-				this.Show();
-				Settings_Shown(this, e);
+            if (riftTimer.DialogResult == DialogResult.OK)
+            {
+                this.Show();
+                Settings_Shown(this, e);
 
-				timesList = riftTimer.riftsList;
-				isSessionLogged = riftTimer.isSessionLogged;
-				logFileName = riftTimer.logFileName;
-			}
-			else if (riftTimer.DialogResult == DialogResult.Cancel)
-			{
-				SaveConfig();
-				Close();
-			}
-		}
+                timesList = riftTimer.riftsList;
+                isSessionLogged = riftTimer.isSessionLogged;
+                logFileName = riftTimer.logFileName;
+            }
+            else if (riftTimer.DialogResult == DialogResult.Cancel)
+            {
+                SaveConfig();
+                Close();
+            }
+        }
     }
 }

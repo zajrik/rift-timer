@@ -43,12 +43,12 @@ namespace RiftTimer.Theme.Default
 
             // recycle rifts list if coming back from settings
             if (riftsList != null)
-				this.riftsList = riftsList;
+                this.riftsList = riftsList;
             
-			this.isSessionLogged = isSessionLogged;
+            this.isSessionLogged = isSessionLogged;
 
             if (logFileName != null)
-				this.logFileName = logFileName;
+                this.logFileName = logFileName;
         }
 
         // Handle global hotkey press
@@ -100,7 +100,7 @@ namespace RiftTimer.Theme.Default
             "Crusader",
             "Demon Hunter",
             "Monk",
-			"Necromancer",
+            "Necromancer",
             "Witch Doctor",
             "Wizard"
         };
@@ -126,57 +126,60 @@ namespace RiftTimer.Theme.Default
             "Torment XIII",
             "Torment XIV",
             "Torment XV",
-			"Torment XVI",
+            "Torment XVI",
         };
 
         private int playerClass = Properties.Settings.Default.playerClass;
-		private bool isNormalRifts = Properties.Settings.Default.isNormalRifts;
+        private bool isNormalRifts = Properties.Settings.Default.isNormalRifts;
         private int difficulty = Properties.Settings.Default.difficulty;
-		private int grDifficulty = Properties.Settings.Default.grDifficulty;
+        private int grDifficulty = Properties.Settings.Default.grDifficulty;
 
         private int posX = Properties.Settings.Default.posX;
         private int posY = Properties.Settings.Default.posY;
 
         private bool isTopMost = Properties.Settings.Default.userTopMost;
 
-		private bool isCollapsed = false;
+        private bool isCollapsed = false;
 
         private void RiftTimer_Load(object sender, EventArgs e)
-		{
-			Point startPos = new Point(posX, posY);
-			this.Location = startPos;
+        {
+            Point startPos = new Point(posX, posY);
+            this.Location = startPos;
 
-			this.TopMost = isTopMost;
+            this.TopMost = isTopMost;
 
-			CheckTime();
+            CheckTime();
 
-			pauseIndicator.Text = "paused";
-			pauseIndicator.Hide();
-			finishIndicator.Text = "finished";
-			finishIndicator.Hide();
+            pauseIndicator.Text = "paused";
+            pauseIndicator.Hide();
+            finishIndicator.Text = "finished";
+            finishIndicator.Hide();
 
-			pauseButton.Enabled = false;
-			finishButton.Enabled = false;
-			resetButton.Enabled = false;
+            pauseButton.Enabled = false;
+            finishButton.Enabled = false;
+            resetButton.Enabled = false;
 
-			logBox.DataSource = riftsList;
-			logBox.DrawMode = DrawMode.OwnerDrawFixed;
+            logBox.DataSource = riftsList;
+            logBox.DrawMode = DrawMode.OwnerDrawFixed;
 
-			classesDropDown.DataSource = classesList;
-			classesDropDown.SelectedIndex = playerClass;
-			difficultyDropDown.DataSource = difficultyList;
-			difficultyDropDown.SelectedIndex = difficulty;
-			grUpDown.Value = grDifficulty;
+            classesDropDown.DataSource = classesList;
+            classesDropDown.SelectedIndex = playerClass;
+            difficultyDropDown.DataSource = difficultyList;
+            difficultyDropDown.SelectedIndex = difficulty;
 
-			UpdateRiftSelectors();
+            grUpDown.Minimum = 1;
+            grUpDown.Maximum = 200;
+            grUpDown.Value = grDifficulty;
 
-			internalClock.Interval = 50;
-			internalClock.Start();
+            UpdateRiftSelectors();
 
-			//debugConsole.Show();
-		}
+            internalClock.Interval = 50;
+            internalClock.Start();
 
-		private void RiftTimer_Shown(object sender, EventArgs e)
+            //debugConsole.Show();
+        }
+
+        private void RiftTimer_Shown(object sender, EventArgs e)
         {
             logBox.ClearSelected();
         }
@@ -236,9 +239,9 @@ namespace RiftTimer.Theme.Default
                     "Rift #", (riftsList.Count + 1).ToString("D3"), "|",
                     time.Elapsed.ToString("mm\\:ss\\:ff"), "|",
                     classesList[classesDropDown.SelectedIndex], "|",
-					isNormalRifts
-						? difficultyList[difficultyDropDown.SelectedIndex]
-						: $"Greater Rift {grDifficulty}"
+                    isNormalRifts
+                        ? difficultyList[difficultyDropDown.SelectedIndex]
+                        : $"Greater Rift {grDifficulty}"
                 );
 
                 riftsList.Add(entryStr);
@@ -312,12 +315,21 @@ namespace RiftTimer.Theme.Default
             {
                 classesDropDown.Enabled = false;
                 difficultyDropDown.Enabled = false;
+                toggleRiftType.Enabled = false;
+
+                grUpDown.Enabled = false;
+                grUpDown.Minimum = grUpDown.Value;
+                grUpDown.Maximum = grUpDown.Value;
             }
             else
             {
                 classesDropDown.Enabled = true;
                 difficultyDropDown.Enabled = true;
-                //pauseButton.Enabled = false;
+                toggleRiftType.Enabled = true;
+
+                grUpDown.Enabled = true;
+                grUpDown.Minimum = 1;
+                grUpDown.Maximum = 200;
             }
 
             if (isPaused)
@@ -378,10 +390,10 @@ namespace RiftTimer.Theme.Default
             if (e.Index > -1)
             {
                 Color color = isSelected
-					? SystemColors.Highlight
-					: e.Index % 2 != 0
-						? Color.SkyBlue
-						: Color.White;
+                    ? SystemColors.Highlight
+                    : e.Index % 2 != 0
+                        ? Color.SkyBlue
+                        : Color.White;
 
                 SolidBrush bgBrush = new SolidBrush(color);
                 SolidBrush txtBrush = new SolidBrush(e.ForeColor);
@@ -415,16 +427,16 @@ namespace RiftTimer.Theme.Default
         // Toggle panel height collapse mode via context menu item
         private void MenuItem_ToggleCollapse_Click(object sender, EventArgs e)
         {
-			if (!isCollapsed)
-			{
-				isCollapsed = true;
-				this.Size = new Size(490, 117);
-			}
-			else
-			{
-				isCollapsed = false;
-				this.Size = new Size(490, 321);
-			}
+            if (!isCollapsed)
+            {
+                isCollapsed = true;
+                this.Size = new Size(490, 117);
+            }
+            else
+            {
+                isCollapsed = false;
+                this.Size = new Size(490, 321);
+            }
         }
 
         // Open file import log
@@ -444,7 +456,7 @@ namespace RiftTimer.Theme.Default
         private void MenuItem_SaveLog_Click(object sender, EventArgs e)
         {
             if (isSessionLogged)
-				File.Delete(logFileName);
+                File.Delete(logFileName);
 
             LogToFile(riftsList);
         }
@@ -499,36 +511,38 @@ namespace RiftTimer.Theme.Default
                 DialogResult = DialogResult.Cancel;
         }
 
-		// Show the appropriate rift selector
-		private void UpdateRiftSelectors()
-		{
-			if (isNormalRifts)
-			{
-				difficultyDropDown.Visible = true;
-				grLevelLabel.Visible = false;
-				grUpDown.Visible = false;
-			}
-			else
-			{
-				grLevelLabel.Visible = true;
-				grUpDown.Visible = true;
-				difficultyDropDown.Visible = false;
-			}
-		}
+        // Show the appropriate rift selector
+        private void UpdateRiftSelectors()
+        {
+            if (isNormalRifts)
+            {
+                difficultyDropDown.Visible = true;
+                grLevelLabel.Visible = false;
+                grUpDown.Visible = false;
+            }
+            else
+            {
+                grLevelLabel.Visible = true;
+                grUpDown.Visible = true;
+                difficultyDropDown.Visible = false;
+            }
+        }
 
-		private void toggleRiftType_Click(object sender, EventArgs e)
-		{
-			isNormalRifts = !isNormalRifts;
-			Properties.Settings.Default.isNormalRifts = isNormalRifts;
-			UpdateRiftSelectors();
-		}
+        private void toggleRiftType_Click(object sender, EventArgs e)
+        {
+            isNormalRifts = !isNormalRifts;
+            Properties.Settings.Default.isNormalRifts = isNormalRifts;
+            Properties.Settings.Default.Save();
+            UpdateRiftSelectors();
+        }
 
-		private void grUpDown_ValueChanged(object sender, EventArgs e)
-		{
-			grDifficulty = (int)grUpDown.Value;
-			Properties.Settings.Default.grDifficulty = grDifficulty;
+        private void grUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            grDifficulty = (int)grUpDown.Value;
+            Properties.Settings.Default.grDifficulty = grDifficulty;
+            Properties.Settings.Default.Save();
 
-			grUpDown.Text = $"Greater Rift {grDifficulty}";
-		}
-	}
+            grUpDown.Text = $"Greater Rift {grDifficulty}";
+        }
+    }
 }
