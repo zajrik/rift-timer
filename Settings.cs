@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
@@ -55,6 +53,7 @@ namespace RiftTimer
                 Properties.Settings.Default.posY = Int32.Parse(config["posY"]);
                 Properties.Settings.Default.settingsChosen = Boolean.Parse(config["settingsChosen"]);
                 Properties.Settings.Default.userTopMost = Boolean.Parse(config["userTopMost"]);
+                Properties.Settings.Default.isNormalRifts = Boolean.Parse(config["isNormalRifts"]);
 
                 Properties.Settings.Default.Save();
             }
@@ -69,7 +68,8 @@ namespace RiftTimer
 				$"posX:{Properties.Settings.Default.posX}",
                 $"posY:{Properties.Settings.Default.posY}",
                 $"settingsChosen:{Properties.Settings.Default.settingsChosen}",
-                $"userTopMost:{Properties.Settings.Default.userTopMost}"
+                $"userTopMost:{Properties.Settings.Default.userTopMost}",
+                $"isNormalRifts:{Properties.Settings.Default.isNormalRifts}"
 			};
 
             File.WriteAllLines(@"temp\RiftTimer.config", configBuffer);

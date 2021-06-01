@@ -94,5 +94,29 @@ namespace RiftTimer.Properties {
                 this["userTopMost"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isNormalRifts {
+            get {
+                return ((bool)(this["isNormalRifts"]));
+            }
+            set {
+                this["isNormalRifts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int grDifficulty {
+            get {
+                return ((int)(this["grDifficulty"]));
+            }
+            set {
+                this["grDifficulty"] = value;
+            }
+        }
     }
 }

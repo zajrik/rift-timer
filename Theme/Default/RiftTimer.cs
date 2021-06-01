@@ -130,7 +130,9 @@ namespace RiftTimer.Theme.Default
         };
 
         private int playerClass = Properties.Settings.Default.playerClass;
+		private bool isNormalRifts = Properties.Settings.Default.isNormalRifts;
         private int difficulty = Properties.Settings.Default.difficulty;
+		private int grDifficulty = Properties.Settings.Default.grDifficulty;
 
         private int posX = Properties.Settings.Default.posX;
         private int posY = Properties.Settings.Default.posY;
@@ -140,38 +142,41 @@ namespace RiftTimer.Theme.Default
 		private bool isCollapsed = false;
 
         private void RiftTimer_Load(object sender, EventArgs e)
-        {
-            Point startPos = new Point(posX, posY);
-            this.Location = startPos;
+		{
+			Point startPos = new Point(posX, posY);
+			this.Location = startPos;
 
-            this.TopMost = isTopMost;
+			this.TopMost = isTopMost;
 
-            CheckTime();
+			CheckTime();
 
-            pauseIndicator.Text = "paused";
-            pauseIndicator.Hide();
-            finishIndicator.Text = "finished";
-            finishIndicator.Hide();
+			pauseIndicator.Text = "paused";
+			pauseIndicator.Hide();
+			finishIndicator.Text = "finished";
+			finishIndicator.Hide();
 
-            pauseButton.Enabled = false;
-            finishButton.Enabled = false;
-            resetButton.Enabled = false;
+			pauseButton.Enabled = false;
+			finishButton.Enabled = false;
+			resetButton.Enabled = false;
 
-            logBox.DataSource = riftsList;
-            logBox.DrawMode = DrawMode.OwnerDrawFixed;
+			logBox.DataSource = riftsList;
+			logBox.DrawMode = DrawMode.OwnerDrawFixed;
 
-            classesDropDown.DataSource = classesList;
-            classesDropDown.SelectedIndex = playerClass;
-            difficultyDropDown.DataSource = difficultyList;
-            difficultyDropDown.SelectedIndex = difficulty;
+			classesDropDown.DataSource = classesList;
+			classesDropDown.SelectedIndex = playerClass;
+			difficultyDropDown.DataSource = difficultyList;
+			difficultyDropDown.SelectedIndex = difficulty;
+			grUpDown.Value = grDifficulty;
 
-            internalClock.Interval = 50;
-            internalClock.Start();
+			UpdateRiftSelectors();
 
-            //debugConsole.Show();
+			internalClock.Interval = 50;
+			internalClock.Start();
+
+			//debugConsole.Show();
 		}
 
-        private void RiftTimer_Shown(object sender, EventArgs e)
+		private void RiftTimer_Shown(object sender, EventArgs e)
         {
             logBox.ClearSelected();
         }
@@ -231,7 +236,9 @@ namespace RiftTimer.Theme.Default
                     "Rift #", (riftsList.Count + 1).ToString("D3"), "|",
                     time.Elapsed.ToString("mm\\:ss\\:ff"), "|",
                     classesList[classesDropDown.SelectedIndex], "|",
-                    difficultyList[difficultyDropDown.SelectedIndex]
+					isNormalRifts
+						? difficultyList[difficultyDropDown.SelectedIndex]
+						: $"Greater Rift {grDifficulty}"
                 );
 
                 riftsList.Add(entryStr);
@@ -491,5 +498,37 @@ namespace RiftTimer.Theme.Default
             if (Properties.Settings.Default.settingsChosen)
                 DialogResult = DialogResult.Cancel;
         }
-    }
+
+		// Show the appropriate rift selector
+		private void UpdateRiftSelectors()
+		{
+			if (isNormalRifts)
+			{
+				difficultyDropDown.Visible = true;
+				grLevelLabel.Visible = false;
+				grUpDown.Visible = false;
+			}
+			else
+			{
+				grLevelLabel.Visible = true;
+				grUpDown.Visible = true;
+				difficultyDropDown.Visible = false;
+			}
+		}
+
+		private void toggleRiftType_Click(object sender, EventArgs e)
+		{
+			isNormalRifts = !isNormalRifts;
+			Properties.Settings.Default.isNormalRifts = isNormalRifts;
+			UpdateRiftSelectors();
+		}
+
+		private void grUpDown_ValueChanged(object sender, EventArgs e)
+		{
+			grDifficulty = (int)grUpDown.Value;
+			Properties.Settings.Default.grDifficulty = grDifficulty;
+
+			grUpDown.Text = $"Greater Rift {grDifficulty}";
+		}
+	}
 }
